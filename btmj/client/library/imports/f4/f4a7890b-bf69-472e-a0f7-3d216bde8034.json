@@ -1,0 +1,22 @@
+{
+  "__type__": "cc.SpriteFrame",
+  "content": {
+    "name": "huase_small02",
+    "texture": "a43b2ee6-42bf-4687-a2f5-3cbe153fb844",
+    "atlas": "6586cb03-dd31-4f56-aa2b-f37134e83457",
+    "rect": [
+      255,
+      735,
+      69,
+      80
+    ],
+    "offset": [
+      0,
+      0
+    ],
+    "originalSize": [
+      69,
+      80
+    ]
+  }
+}

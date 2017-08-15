@@ -1,0 +1,26 @@
+{
+  "version": 3,
+  "sources": [
+    "unknown"
+  ],
+  "names": [
+    "Global",
+    "cc",
+    "Class",
+    "extends",
+    "Component",
+    "statics",
+    "isstarted",
+    "netinited",
+    "userguid",
+    "nickname",
+    "money",
+    "lv",
+    "roomId"
+  ],
+  "mappings": ";;AAAA,IAAIA,SAASC,GAAGC,KAAH,CAAS;AAClBC,aAASF,GAAGG,SADM;AAElBC,aAAS;AACLC,mBAAW,KADN;AAELC,mBAAW,KAFN;AAGLC,kBAAU,CAHL;AAILC,kBAAU,EAJL;AAKLC,eAAO,CALF;AAMLC,YAAI,CANC;AAOLC,gBAAQ;AAPH;AAFS,CAAT,CAAb",
+  "file": "unknown",
+  "sourcesContent": [
+    "var Global = cc.Class({\n    extends: cc.Component,\n    statics: {\n        isstarted: false,\n        netinited: false,\n        userguid: 0,\n        nickname: \"\",\n        money: 0,\n        lv: 0,\n        roomId: 0,\n    },\n});"
+  ]
+}

@@ -1,0 +1,49 @@
+{
+  "version": 3,
+  "sources": [
+    "unknown"
+  ],
+  "names": [
+    "cc",
+    "Class",
+    "extends",
+    "Component",
+    "properties",
+    "_reconnect",
+    "_lblTip",
+    "_lastPing",
+    "onLoad",
+    "find",
+    "getComponent",
+    "Label",
+    "self",
+    "fnTestServerOn",
+    "vv",
+    "net",
+    "test",
+    "ret",
+    "director",
+    "loadScene",
+    "setTimeout",
+    "fn",
+    "data",
+    "node",
+    "off",
+    "active",
+    "on",
+    "update",
+    "dt",
+    "t",
+    "Math",
+    "floor",
+    "Date",
+    "now",
+    "string",
+    "i"
+  ],
+  "mappings": ";;AAAAA,GAAGC,KAAH,CAAS;AACLC,aAASF,GAAGG,SADP;AAELC,gBAAY;AACR;AACA;AACA;AACA;AACA;AACA;AACA;AACA;AACA;AACA;AACAC,oBAAY,IAXJ;AAYRC,iBAAS,IAZD;AAaRC,mBAAW;AAbH,KAFP;AAiBL;AACAC,YAAQ,kBAAW;AACf,aAAKH,UAAL,GAAkBL,GAAGS,IAAH,CAAQ,kBAAR,CAAlB;AACA,aAAKH,OAAL,GAAeN,GAAGS,IAAH,CAAQ,sBAAR,EAAgCC,YAAhC,CAA6CV,GAAGW,KAAhD,CAAf;AACA,YAAIC,OAAO,IAAX;AACA,YAAIC,iBAAiB,SAAjBA,cAAiB,GAAW;AAC5Bb,eAAGc,EAAH,CAAMC,GAAN,CAAUC,IAAV,CAAe,UAASC,GAAT,EAAc;AACzB,oBAAIA,GAAJ,EAAS;AACLjB,uBAAGkB,QAAH,CAAYC,SAAZ,CAAsB,SAAtB;AACH,iBAFD,MAEO;AACHC,+BAAWP,cAAX,EAA2B,IAA3B;AACH;AACJ,aAND;AAOH,SARD;AASA,YAAIQ,KAAK,SAALA,EAAK,CAASC,IAAT,EAAe;AACpBV,iBAAKW,IAAL,CAAUC,GAAV,CAAc,YAAd,EAA4BH,EAA5B;AACAT,iBAAKP,UAAL,CAAgBoB,MAAhB,GAAyB,IAAzB;AACAZ;AACH,SAJD;AAKA,aAAKU,IAAL,CAAUG,EAAV,CAAa,YAAb,EAA2BL,EAA3B;AACA,aAAKE,IAAL,CAAUG,EAAV,CAAa,UAAb,EAAyB,UAAST,GAAT,EAAa;AAClCjB,eAAGkB,QAAH,CAAYC,SAAZ,CAAsB,SAAtB;AACH,SAFD;AAGH,KAxCI;AAyCL;AACAQ,YAAQ,gBAASC,EAAT,EAAa;AACjB,YAAI,KAAKvB,UAAL,CAAgBoB,MAApB,EAA4B;AACxB,gBAAII,IAAIC,KAAKC,KAAL,CAAWC,KAAKC,GAAL,KAAa,IAAxB,IAAgC,CAAxC;AACA,iBAAK3B,OAAL,CAAa4B,MAAb,GAAsB,iBAAtB;AACA,iBAAK,IAAIC,IAAI,CAAb,EAAgBA,IAAIN,CAApB,EAAuB,EAAEM,CAAzB,EAA4B;AACxB,qBAAK7B,OAAL,CAAa4B,MAAb,IAAuB,GAAvB;AACH;AACJ;AACJ;AAlDI,CAAT",
+  "file": "unknown",
+  "sourcesContent": [
+    "cc.Class({\r\n    extends: cc.Component,\r\n    properties: {\r\n        // foo: {\r\n        //    default: null,      // The default value will be used only when the component attaching\r\n        //                           to a node for the first time\r\n        //    url: cc.Texture2D,  // optional, default is typeof default\r\n        //    serializable: true, // optional, default is true\r\n        //    visible: true,      // optional, default is true\r\n        //    displayName: 'Foo', // optional\r\n        //    readonly: false,    // optional, default is false\r\n        // },\r\n        // ...\r\n        _reconnect: null,\r\n        _lblTip: null,\r\n        _lastPing: 0,\r\n    },\r\n    // use this for initialization\r\n    onLoad: function() {\r\n        this._reconnect = cc.find(\"Canvas/reconnect\");\r\n        this._lblTip = cc.find(\"Canvas/reconnect/tip\").getComponent(cc.Label);\r\n        var self = this;\r\n        var fnTestServerOn = function() {\r\n            cc.vv.net.test(function(ret) {\r\n                if (ret) {\r\n                    cc.director.loadScene('newhall');\r\n                } else {\r\n                    setTimeout(fnTestServerOn, 3000);\r\n                }\r\n            });\r\n        }\r\n        var fn = function(data) {\r\n            self.node.off('disconnect', fn);\r\n            self._reconnect.active = true;\r\n            fnTestServerOn();\r\n        };\r\n        this.node.on('disconnect', fn);\r\n        this.node.on('loadHall', function(ret){\r\n            cc.director.loadScene('newhall');\r\n        });\r\n    },\r\n    // called every frame, uncomment this function to activate update callback\r\n    update: function(dt) {\r\n        if (this._reconnect.active) {\r\n            var t = Math.floor(Date.now() / 1000) % 4;\r\n            this._lblTip.string = \"与服务器断开连接，正在尝试重连\";\r\n            for (var i = 0; i < t; ++i) {\r\n                this._lblTip.string += '.';\r\n            }\r\n        }\r\n    },\r\n});"
+  ]
+}

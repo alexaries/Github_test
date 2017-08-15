@@ -1,0 +1,39 @@
+{
+  "version": 3,
+  "sources": [
+    "unknown"
+  ],
+  "names": [
+    "cc",
+    "Class",
+    "extends",
+    "Component",
+    "properties",
+    "_nextPlayTime",
+    "_replay",
+    "_isPlaying",
+    "onLoad",
+    "vv",
+    "find",
+    "active",
+    "replayMgr",
+    "isReplay",
+    "onBtnPauseClicked",
+    "onBtnPlayClicked",
+    "onBtnBackClicked",
+    "clear",
+    "gameNetMgr",
+    "reset",
+    "roomId",
+    "director",
+    "loadScene",
+    "update",
+    "dt",
+    "takeAction"
+  ],
+  "mappings": ";;AAAAA,GAAGC,KAAH,CAAS;AACLC,aAASF,GAAGG,SADP;AAELC,gBAAY;AACR;AACA;AACA;AACA;AACA;AACA;AACA;AACA;AACA;AACAC,uBAAe,CAVP;AAWRC,iBAAS,IAXD;AAYRC,oBAAY;AAZJ,KAFP;AAgBL;AACAC,YAAQ,kBAAW;AACf,YAAIR,GAAGS,EAAH,IAAS,IAAb,EAAmB;AACf;AACH;AACD,aAAKH,OAAL,GAAeN,GAAGU,IAAH,CAAQ,eAAR,CAAf;AACA,aAAKJ,OAAL,CAAaK,MAAb,GAAsBX,GAAGS,EAAH,CAAMG,SAAN,CAAgBC,QAAhB,EAAtB;AACH,KAvBI;AAwBLC,uBAAmB,6BAAW;AAC1B,aAAKP,UAAL,GAAkB,KAAlB;AACH,KA1BI;AA2BLQ,sBAAkB,4BAAW;AACzB,aAAKR,UAAL,GAAkB,IAAlB;AACH,KA7BI;AA8BLS,sBAAkB,4BAAW;AACzBhB,WAAGS,EAAH,CAAMG,SAAN,CAAgBK,KAAhB;AACAjB,WAAGS,EAAH,CAAMS,UAAN,CAAiBC,KAAjB;AACAnB,WAAGS,EAAH,CAAMS,UAAN,CAAiBE,MAAjB,GAA0B,IAA1B;AACApB,WAAGqB,QAAH,CAAYC,SAAZ,CAAsB,SAAtB;AACH,KAnCI;AAoCL;AACAC,YAAQ,gBAASC,EAAT,EAAa;AACjB,YAAIxB,GAAGS,EAAP,EAAW;AACP,gBAAI,KAAKF,UAAL,IAAmBP,GAAGS,EAAH,CAAMG,SAAN,CAAgBC,QAAhB,MAA8B,IAAjD,IAAyD,KAAKR,aAAL,GAAqB,CAAlF,EAAqF;AACjF,qBAAKA,aAAL,IAAsBmB,EAAtB;AACA,oBAAI,KAAKnB,aAAL,GAAqB,CAAzB,EAA4B;AACxB,yBAAKA,aAAL,GAAqBL,GAAGS,EAAH,CAAMG,SAAN,CAAgBa,UAAhB,EAArB;AACH;AACJ;AACJ;AACJ;AA9CI,CAAT",
+  "file": "unknown",
+  "sourcesContent": [
+    "cc.Class({\r\n    extends: cc.Component,\r\n    properties: {\r\n        // foo: {\r\n        //    default: null,\r\n        //    url: cc.Texture2D,  // optional, default is typeof default\r\n        //    serializable: true, // optional, default is true\r\n        //    visible: true,      // optional, default is true\r\n        //    displayName: 'Foo', // optional\r\n        //    readonly: false,    // optional, default is false\r\n        // },\r\n        // ...\r\n        _nextPlayTime: 1,\r\n        _replay: null,\r\n        _isPlaying: true,\r\n    },\r\n    // use this for initialization\r\n    onLoad: function() {\r\n        if (cc.vv == null) {\r\n            return;\r\n        }\r\n        this._replay = cc.find(\"Canvas/replay\");\r\n        this._replay.active = cc.vv.replayMgr.isReplay();\r\n    },\r\n    onBtnPauseClicked: function() {\r\n        this._isPlaying = false;\r\n    },\r\n    onBtnPlayClicked: function() {\r\n        this._isPlaying = true;\r\n    },\r\n    onBtnBackClicked: function() {\r\n        cc.vv.replayMgr.clear();\r\n        cc.vv.gameNetMgr.reset();\r\n        cc.vv.gameNetMgr.roomId = null;\r\n        cc.director.loadScene(\"newhall\");\r\n    },\r\n    // called every frame, uncomment this function to activate update callback\r\n    update: function(dt) {\r\n        if (cc.vv) {\r\n            if (this._isPlaying && cc.vv.replayMgr.isReplay() == true && this._nextPlayTime > 0) {\r\n                this._nextPlayTime -= dt;\r\n                if (this._nextPlayTime < 0) {\r\n                    this._nextPlayTime = cc.vv.replayMgr.takeAction();\r\n                }\r\n            }\r\n        }\r\n    },\r\n});"
+  ]
+}

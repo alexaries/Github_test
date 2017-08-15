@@ -1,0 +1,22 @@
+{
+  "__type__": "cc.SpriteFrame",
+  "content": {
+    "name": "btnReturnRoom",
+    "texture": "4fd371e3-b653-4323-9f61-9c35a6275259",
+    "atlas": "e1eb5b29-efd6-4637-ae26-36cc25e37d76",
+    "rect": [
+      4,
+      128,
+      381,
+      115
+    ],
+    "offset": [
+      -2,
+      0
+    ],
+    "originalSize": [
+      397,
+      137
+    ]
+  }
+}

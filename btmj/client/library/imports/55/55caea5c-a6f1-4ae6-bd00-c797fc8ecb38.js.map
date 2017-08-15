@@ -1,0 +1,53 @@
+{
+  "version": 3,
+  "sources": [
+    "unknown"
+  ],
+  "names": [
+    "cc",
+    "Class",
+    "extends",
+    "Component",
+    "properties",
+    "bgmVolume",
+    "sfxVolume",
+    "bgmAudioID",
+    "init",
+    "t",
+    "sys",
+    "localStorage",
+    "getItem",
+    "parseFloat",
+    "setItem",
+    "game",
+    "on",
+    "EVENT_HIDE",
+    "console",
+    "log",
+    "audioEngine",
+    "pauseAll",
+    "EVENT_SHOW",
+    "resumeAll",
+    "getUrl",
+    "url",
+    "raw",
+    "playBGM",
+    "audioUrl",
+    "stop",
+    "play",
+    "setBGMVolume",
+    "playSFX",
+    "audioId",
+    "setSFXVolume",
+    "v",
+    "force",
+    "resume",
+    "pause",
+    "setVolume"
+  ],
+  "mappings": "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",
+  "file": "unknown",
+  "sourcesContent": [
+    "cc.Class({\r\n    extends: cc.Component,\r\n    properties: {\r\n        bgmVolume: 1.0,\r\n        sfxVolume: 1.0,\r\n        bgmAudioID: -1,\r\n    },\r\n    // use this for initialization\r\n    init: function() {\r\n        var t = cc.sys.localStorage.getItem(\"bgmVolume\");\r\n        if (t != null && t > 0) {\r\n            this.bgmVolume = parseFloat(t);\r\n        } else {\r\n            cc.sys.localStorage.setItem(\"bgmVolume\", 1.0);\r\n        };\r\n        var t = cc.sys.localStorage.getItem(\"sfxVolume\");\r\n        if (t != null && t > 0) {\r\n            this.sfxVolume = parseFloat(t);\r\n        } else {\r\n            cc.sys.localStorage.setItem(\"sfxVolume\", 1.0);\r\n        };\r\n        cc.game.on(cc.game.EVENT_HIDE, function() {\r\n            console.log(\"cc.audioEngine.pauseAll\");\r\n            cc.audioEngine.pauseAll();\r\n        });\r\n        cc.game.on(cc.game.EVENT_SHOW, function() {\r\n            console.log(\"cc.audioEngine.resumeAll\");\r\n            cc.audioEngine.resumeAll();\r\n        });\r\n    },\r\n    getUrl: function(url) {\r\n        return cc.url.raw(\"resources/sounds/\" + url);\r\n    },\r\n    playBGM(url) {\r\n        var audioUrl = this.getUrl(url);\r\n        console.log(audioUrl);\r\n        if (this.bgmAudioID >= 0) {\r\n            cc.audioEngine.stop(this.bgmAudioID);\r\n        }\r\n        this.bgmAudioID = cc.audioEngine.play(audioUrl, true, this.bgmVolume);\r\n        var t = cc.sys.localStorage.getItem(\"bgmVolume\");\r\n        if (t == null) {\r\n            t = 0;\r\n        }\r\n        console.log('当前音量是多少' + t);\r\n        this.setBGMVolume(t);\r\n        // alert(\"当前的id是--\"+this.bgmAudioID);\r\n    },\r\n    playSFX(url) {\r\n        var audioUrl = this.getUrl(url);\r\n        if (this.sfxVolume > 0) {\r\n            var audioId = cc.audioEngine.play(audioUrl, false, this.sfxVolume);\r\n        }\r\n    },\r\n    setSFXVolume: function(v) {\r\n        if (this.sfxVolume != v) {\r\n            cc.sys.localStorage.setItem(\"sfxVolume\", v);\r\n            this.sfxVolume = v;\r\n        }\r\n    },\r\n    setBGMVolume: function(v, force) {\r\n        if (this.bgmAudioID >= 0) {\r\n            if (v > 0) {\r\n                cc.audioEngine.resume(this.bgmAudioID);\r\n            } else {\r\n                cc.audioEngine.pause(this.bgmAudioID);\r\n            }\r\n            //cc.audioEngine.setVolume(this.bgmAudioID,this.bgmVolume);\r\n        }\r\n        if (this.bgmVolume != v || force) {\r\n            cc.sys.localStorage.setItem(\"bgmVolume\", v);\r\n            this.bgmVolume = v;\r\n            cc.audioEngine.setVolume(this.bgmAudioID, v);\r\n        }\r\n    },\r\n    pauseAll: function() {\r\n        cc.audioEngine.pauseAll();\r\n    },\r\n    resumeAll: function() {\r\n        cc.audioEngine.resumeAll();\r\n    }\r\n});"
+  ]
+}

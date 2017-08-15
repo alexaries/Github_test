@@ -1,0 +1,23 @@
+{
+  "__type__": "cc.SpriteFrame",
+  "content": {
+    "name": "dezhou_plue",
+    "texture": "a3a7360b-491f-4ff9-aba7-4c75a35817df",
+    "atlas": "f8f255f6-7f10-4a99-8503-7d9fd79b595b",
+    "rect": [
+      866,
+      347,
+      158,
+      63
+    ],
+    "offset": [
+      0,
+      0
+    ],
+    "originalSize": [
+      158,
+      63
+    ],
+    "rotated": 1
+  }
+}

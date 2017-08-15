@@ -1,0 +1,1 @@
+pm2 start %~dp0\dzpk_server\app.js --name dzpk

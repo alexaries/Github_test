@@ -1,0 +1,47 @@
+{
+  "version": 3,
+  "sources": [
+    "unknown"
+  ],
+  "names": [
+    "cc",
+    "Class",
+    "extends",
+    "Component",
+    "initHandlers",
+    "GameNet",
+    "self",
+    "vv",
+    "net",
+    "addHandler",
+    "data",
+    "console",
+    "log",
+    "errcode",
+    "roomId",
+    "roomid",
+    "room_type",
+    "conf",
+    "maxNumOfGames",
+    "maxGames",
+    "numOfGames",
+    "numofgames",
+    "seats",
+    "seatIndex",
+    "getSeatIndexByID",
+    "userMgr",
+    "userId",
+    "isOver",
+    "cq_data",
+    "errmsg",
+    "director",
+    "loadScene",
+    "turn",
+    "cqDispatchEvent"
+  ],
+  "mappings": "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",
+  "file": "unknown",
+  "sourcesContent": [
+    "cc.Class({\r\n    extends: cc.Component,\r\n    initHandlers: function(GameNet) {\r\n        var self = GameNet;\r\n        cc.vv.net.addHandler(\"login_result\", function(data) {\r\n            console.log(\"login_result===>\", data);\r\n            if (data.errcode === 0) {\r\n                var data = data.data;\r\n                self.roomId = data.roomid;\r\n                self.room_type = data.conf.room_type;\r\n                self.conf = data.conf;\r\n                self.maxNumOfGames = data.conf.maxGames;\r\n                self.numOfGames = data.numofgames;\r\n                self.seats = data.seats;\r\n                self.seatIndex = self.getSeatIndexByID(cc.vv.userMgr.userId);\r\n                self.isOver = false;\r\n                self.cq_data = data.data;\r\n            } else {\r\n                console.log(data.errmsg);\r\n            }\r\n        });\r\n        cc.vv.net.addHandler(\"login_finished\", function(data) {\r\n            console.log(\"login_finished\");\r\n            cc.director.loadScene(\"caiquan\");\r\n        });\r\n        cc.vv.net.addHandler(\"exit_result\", function(data) {\r\n            self.roomId = null;\r\n            self.room_type = -1;\r\n            self.turn = -1;\r\n            self.seats = null;\r\n        });\r\n        cc.vv.net.addHandler(\"dispress_push\", function(data) {\r\n            self.roomId = null;\r\n            self.room_type = -1;\r\n            self.turn = -1;\r\n            self.seats = null;\r\n        });\r\n        cc.vv.net.addHandler(\"disconnect\", function(data) {\r\n            self.roomId = null;\r\n            self.room_type = -1;\r\n            self.cqDispatchEvent(\"disconnect\");\r\n        });\r\n        cc.vv.net.addHandler(\"cq_begin_push\", function(data) {\r\n            console.log(\"cq_begin_push\");\r\n            self.cqDispatchEvent(\"cq_begin\", data);\r\n        });\r\n        cc.vv.net.addHandler(\"cq_new_user_comes_push\", function(data) {\r\n            console.log(\"cq_new_user_comes_push\", data);\r\n            self.cq_data = data.data;\r\n            self.cqDispatchEvent(\"cq_new_user\", data);\r\n        });\r\n        cc.vv.net.addHandler(\"cq_game_over_push\", function(data) {\r\n            console.log(\"cq_game_over_push\", data);\r\n            self.cqDispatchEvent(\"cq_game_over\", data);\r\n        });\r\n        cc.vv.net.addHandler(\"cq_game_time_push\", function(data) {\r\n            // console.log(\"cq_game_time_push\", data);\r\n            self.cqDispatchEvent(\"cq_game_time\", data);\r\n        });\r\n        cc.vv.net.addHandler(\"cq_exit_notify_push\", function(data) {\r\n            var userId = data;\r\n            self.cqDispatchEvent(\"cq_exit_notify\", userId);\r\n        });\r\n        cc.vv.net.addHandler(\"cq_dispress_push\", function(data) {\r\n            var userId = data;\r\n            self.roomId = null;\r\n            self.room_type = -1;\r\n            self.turn = -1;\r\n            self.seats = null;\r\n            self.cq_data = null;\r\n            self.cqDispatchEvent(\"cq_dispress\", userId);\r\n        });\r\n        cc.vv.net.addHandler(\"cq_loser_notify_push\", function(data) {\r\n            var userId = data;\r\n            if (cc.vv.userMgr.userId == userId) {\r\n                self.roomId = null;\r\n                self.room_type = -1;\r\n                self.turn = -1;\r\n                self.seats = null;\r\n                self.cq_data = null;\r\n            }\r\n            self.cqDispatchEvent(\"cq_loser_notify\", userId);\r\n        });\r\n        cc.vv.net.addHandler(\"cq_winner_notify_push\", function(data) {\r\n            var userId = data;\r\n            self.roomId = null;\r\n            self.room_type = -1;\r\n            self.turn = -1;\r\n            self.seats = null;\r\n            self.cq_data = null;\r\n            self.cqDispatchEvent(\"cq_winner_notify\", userId);\r\n        });\r\n        cc.vv.net.addHandler(\"cq_chuquan_notify_push\", function(data) {\r\n            self.cqDispatchEvent(\"cq_chuquan_notify\", data);\r\n        });\r\n    },\r\n})"
+  ]
+}

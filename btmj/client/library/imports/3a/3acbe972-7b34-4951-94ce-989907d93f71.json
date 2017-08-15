@@ -1,0 +1,23 @@
+{
+  "__type__": "cc.SpriteFrame",
+  "content": {
+    "name": "shitou2",
+    "texture": "00c87c6f-f176-427f-9668-a9e808d5a3fa",
+    "atlas": "ad3e457e-1a1d-4a7c-92ef-b45420e12c28",
+    "rect": [
+      1609,
+      3519,
+      125,
+      135
+    ],
+    "offset": [
+      0,
+      0
+    ],
+    "originalSize": [
+      153,
+      157
+    ],
+    "rotated": 1
+  }
+}

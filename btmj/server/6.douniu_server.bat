@@ -1,0 +1,1 @@
+pm2 start %~dp0\douniu_server\app.js --name douniu

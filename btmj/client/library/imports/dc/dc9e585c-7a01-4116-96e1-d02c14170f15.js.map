@@ -1,0 +1,31 @@
+{
+  "version": 3,
+  "sources": [
+    "unknown"
+  ],
+  "names": [
+    "cc",
+    "Class",
+    "extends",
+    "Component",
+    "properties",
+    "target",
+    "Node",
+    "sprite",
+    "SpriteFrame",
+    "checkedSprite",
+    "checked",
+    "onLoad",
+    "refresh",
+    "onClicked",
+    "targetSprite",
+    "getComponent",
+    "Sprite",
+    "spriteFrame"
+  ],
+  "mappings": ";;AAAAA,GAAGC,KAAH,CAAS;AACLC,aAASF,GAAGG,SADP;AAELC,gBAAY;AACR;AACA;AACA;AACA;AACA;AACA;AACA;AACA;AACA;AACAC,gBAAQL,GAAGM,IAVH;AAWRC,gBAAQP,GAAGQ,WAXH;AAYRC,uBAAeT,GAAGQ,WAZV;AAaRE,iBAAS;AAbD,KAFP;AAiBL;AACAC,YAAQ,kBAAW;AACf,aAAKC,OAAL;AACH,KApBI;AAqBLC,eAAW,qBAAW;AAClB,aAAKH,OAAL,GAAe,CAAC,KAAKA,OAArB;AACA,aAAKE,OAAL;AACH,KAxBI;AAyBLA,aAAS,mBAAW;AAChB,YAAIE,eAAe,KAAKT,MAAL,CAAYU,YAAZ,CAAyBf,GAAGgB,MAA5B,CAAnB;AACA,YAAI,KAAKN,OAAT,EAAkB;AACdI,yBAAaG,WAAb,GAA2B,KAAKR,aAAhC;AACH,SAFD,MAEO;AACHK,yBAAaG,WAAb,GAA2B,KAAKV,MAAhC;AACH;AACJ;AACD;AACA;AACA;AAnCK,CAAT",
+  "file": "unknown",
+  "sourcesContent": [
+    "cc.Class({\r\n    extends: cc.Component,\r\n    properties: {\r\n        // foo: {\r\n        //    default: null,\r\n        //    url: cc.Texture2D,  // optional, default is typeof default\r\n        //    serializable: true, // optional, default is true\r\n        //    visible: true,      // optional, default is true\r\n        //    displayName: 'Foo', // optional\r\n        //    readonly: false,    // optional, default is false\r\n        // },\r\n        // ...\r\n        target: cc.Node,\r\n        sprite: cc.SpriteFrame,\r\n        checkedSprite: cc.SpriteFrame,\r\n        checked: false,\r\n    },\r\n    // use this for initialization\r\n    onLoad: function() {\r\n        this.refresh();\r\n    },\r\n    onClicked: function() {\r\n        this.checked = !this.checked;\r\n        this.refresh();\r\n    },\r\n    refresh: function() {\r\n        var targetSprite = this.target.getComponent(cc.Sprite);\r\n        if (this.checked) {\r\n            targetSprite.spriteFrame = this.checkedSprite;\r\n        } else {\r\n            targetSprite.spriteFrame = this.sprite;\r\n        }\r\n    }\r\n    // called every frame, uncomment this function to activate update callback\r\n    // update: function (dt) {\r\n    // },\r\n});"
+  ]
+}

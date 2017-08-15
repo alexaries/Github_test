@@ -1,0 +1,22 @@
+{
+  "__type__": "cc.SpriteFrame",
+  "content": {
+    "name": "dizhu_wel",
+    "texture": "806bd7db-cbe0-4539-b5f8-4861af7da77a",
+    "atlas": "1c2bd5e9-2183-47c6-85a6-171c633537ec",
+    "rect": [
+      257,
+      1,
+      378,
+      152
+    ],
+    "offset": [
+      0,
+      0
+    ],
+    "originalSize": [
+      378,
+      152
+    ]
+  }
+}

@@ -1,0 +1,95 @@
+{
+  "__type__": "cc.SpriteAtlas",
+  "_name": "dzpk.plist",
+  "_objFlags": 0,
+  "_rawFiles": null,
+  "_spriteFrames": {
+    "dezhou_53": {
+      "__uuid__": "c371e9a4-c9d2-4bbd-9e6d-d57bb879875e"
+    },
+    "dezhou_allin": {
+      "__uuid__": "70739854-0df7-43e1-adfe-7571344e88d1"
+    },
+    "dezhou_bottom1": {
+      "__uuid__": "1cd74363-7df8-4723-8d5d-9945591daedc"
+    },
+    "dezhou_bottom2": {
+      "__uuid__": "acbf63f0-21a1-4d57-a395-d4e85b47b9c7"
+    },
+    "dezhou_bottom3": {
+      "__uuid__": "76b3cfef-4dd1-4139-9d29-8064411f862a"
+    },
+    "dezhou_buyao": {
+      "__uuid__": "c1f69748-52cd-4256-9ca1-5427a9aece22"
+    },
+    "dezhou_jiazhu": {
+      "__uuid__": "afff1b3c-1efd-4395-9a6c-aa31e7bd9a53"
+    },
+    "dezhou_jiazhu1": {
+      "__uuid__": "b8ee02ee-315d-4d07-9640-ddd377466d67"
+    },
+    "dezhou_jiazhu3": {
+      "__uuid__": "eb2494b5-f90c-4dfa-9dd1-a2433a522ab2"
+    },
+    "dezhou_jiazhu4": {
+      "__uuid__": "92b3af4a-d450-43d0-8319-24e028feaebd"
+    },
+    "dezhou_minicard": {
+      "__uuid__": "db910758-0318-4024-b03d-4fbaebe91357"
+    },
+    "dezhou_next1": {
+      "__uuid__": "e4896ff3-0801-447b-a146-789bb7bf80bc"
+    },
+    "dezhou_next1_": {
+      "__uuid__": "fb117b84-6146-41b7-8e30-e5deefa72f5c"
+    },
+    "dezhou_next2": {
+      "__uuid__": "218ddc16-0078-46fb-bb84-651f0dba536f"
+    },
+    "dezhou_next2_": {
+      "__uuid__": "e4a4bd0d-a94e-44dc-9a4a-039e80e23eb3"
+    },
+    "dezhou_next3": {
+      "__uuid__": "6d022d51-89cc-40c6-abe0-0df9ccc67ec0"
+    },
+    "dezhou_next3_": {
+      "__uuid__": "0af8bd18-cac5-4009-a2ad-462234111fa1"
+    },
+    "dezhou_nextbg": {
+      "__uuid__": "58938fb7-3eb6-453f-a835-2ae0b377a0b3"
+    },
+    "dezhou_nextbg_": {
+      "__uuid__": "637e5dfa-3e01-45c7-bc11-4c1959cdfdbf"
+    },
+    "dezhou_notebg": {
+      "__uuid__": "5404f40a-c1f3-45e6-9d42-36559aef96b9"
+    },
+    "dezhou_notebg_": {
+      "__uuid__": "d07b5722-4e74-4b28-b09d-0c0f8d8b2984"
+    },
+    "dezhou_num1": {
+      "__uuid__": "d4973796-344c-46b1-9cdf-5ab933b2eb89"
+    },
+    "dezhou_num2": {
+      "__uuid__": "bc085595-f47b-4879-99c4-ce5154cc6517"
+    },
+    "dezhou_plue": {
+      "__uuid__": "49c76a0e-95c3-422e-97d4-3eb25ab18ae8"
+    },
+    "dezhou_pluebg": {
+      "__uuid__": "f98e5367-d229-4aaa-b72c-a1d810a14854"
+    },
+    "dezhou_quit": {
+      "__uuid__": "291ef76a-912f-46e3-a517-872f92189d91"
+    },
+    "dezhou_wel": {
+      "__uuid__": "822f1391-251d-42b0-acc8-be90abc3e80d"
+    },
+    "panel04": {
+      "__uuid__": "4daa2ec6-b183-4ec7-aa1f-e9136f283580"
+    },
+    "set_pai": {
+      "__uuid__": "a18d67dc-e646-403e-b615-fc3d8488c0b6"
+    }
+  }
+}

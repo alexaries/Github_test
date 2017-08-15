@@ -1,0 +1,32 @@
+{
+  "__type__": "cc.SpriteAtlas",
+  "_name": "yan_hua.plist",
+  "_objFlags": 0,
+  "_rawFiles": null,
+  "_spriteFrames": {
+    "layer-0": {
+      "__uuid__": "e991c8c7-e5a2-4819-8ed4-f82eedde55c0"
+    },
+    "layer-1": {
+      "__uuid__": "7aba7cd0-14cd-4785-b2c2-70f29cf732e7"
+    },
+    "layer-2": {
+      "__uuid__": "96e96145-de82-4b54-aa86-fac4e2175736"
+    },
+    "layer-3": {
+      "__uuid__": "f8304d20-f6c3-476e-84cf-faf31b6dd125"
+    },
+    "layer-4": {
+      "__uuid__": "f3a70d40-c5a8-4f53-a0d4-92ca62249c6b"
+    },
+    "layer-5": {
+      "__uuid__": "1e737c95-75a3-4ae0-9581-668baa0d2393"
+    },
+    "layer-6": {
+      "__uuid__": "70bbbefe-de70-4dea-b905-457b935d3a04"
+    },
+    "layer-7": {
+      "__uuid__": "eda50f86-b424-4d53-a097-69005a6fcec4"
+    }
+  }
+}

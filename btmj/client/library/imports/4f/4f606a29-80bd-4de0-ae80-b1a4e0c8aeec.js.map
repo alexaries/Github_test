@@ -1,0 +1,42 @@
+{
+  "version": 3,
+  "sources": [
+    "unknown"
+  ],
+  "names": [
+    "cc",
+    "Class",
+    "extends",
+    "Component",
+    "properties",
+    "voice",
+    "Node",
+    "help",
+    "_btnYXOpen",
+    "_btnYXClose",
+    "_btnYYOpen",
+    "_btnYYClose",
+    "onLoad",
+    "vv",
+    "node",
+    "getChildByName",
+    "utils",
+    "addClickEvent",
+    "refreshVolume",
+    "active",
+    "audioMgr",
+    "sfxVolume",
+    "bgmVolume",
+    "onBtnClicked",
+    "event",
+    "target",
+    "name",
+    "setSFXVolume",
+    "setBGMVolume"
+  ],
+  "mappings": "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",
+  "file": "unknown",
+  "sourcesContent": [
+    "cc.Class({\r\n    extends: cc.Component,\r\n    properties: {\r\n        voice: cc.Node,\r\n        help: cc.Node,\r\n        _btnYXOpen: null,\r\n        _btnYXClose: null,\r\n        _btnYYOpen: null,\r\n        _btnYYClose: null,\r\n    },\r\n    // use this for initialization\r\n    onLoad: function() {\r\n        if (cc.vv == null) {\r\n            return;\r\n        }\r\n        this._btnYXOpen = this.node.getChildByName(\"voice\").getChildByName(\"jbs_details\").getChildByName(\"sound_on\");\r\n        this._btnYXClose = this.node.getChildByName(\"voice\").getChildByName(\"jbs_details\").getChildByName(\"sound_off\");\r\n        this._btnYYOpen = this.node.getChildByName(\"voice\").getChildByName(\"jbs_details\").getChildByName(\"music_on\");\r\n        this._btnYYClose = this.node.getChildByName(\"voice\").getChildByName(\"jbs_details\").getChildByName(\"music_off\");\r\n        cc.vv.utils.addClickEvent(this._btnYXOpen, this.node, \"Set\", \"onBtnClicked\");\r\n        cc.vv.utils.addClickEvent(this._btnYXClose, this.node, \"Set\", \"onBtnClicked\");\r\n        cc.vv.utils.addClickEvent(this._btnYYOpen, this.node, \"Set\", \"onBtnClicked\");\r\n        cc.vv.utils.addClickEvent(this._btnYYClose, this.node, \"Set\", \"onBtnClicked\");\r\n        this.refreshVolume();\r\n    },\r\n    refreshVolume: function() {\r\n        this._btnYXClose.active = cc.vv.audioMgr.sfxVolume > 0;\r\n        this._btnYXOpen.active = !this._btnYXClose.active;\r\n        this._btnYYClose.active = cc.vv.audioMgr.bgmVolume > 0;\r\n        this._btnYYOpen.active = !this._btnYYClose.active;\r\n    },\r\n    onBtnClicked: function(event) {\r\n        if (event.target.name == \"guanbi\") {\r\n            this.node.active = false;\r\n        } else if (event.target.name == \"sound_on\") {\r\n            cc.vv.audioMgr.setSFXVolume(1);\r\n            this.refreshVolume();\r\n        } else if (event.target.name == \"sound_off\") {\r\n            cc.vv.audioMgr.setSFXVolume(0);\r\n            this.refreshVolume();\r\n        } else if (event.target.name == \"music_on\") {\r\n            cc.vv.audioMgr.setBGMVolume(1);\r\n            this.refreshVolume();\r\n        } else if (event.target.name == \"music_off\") {\r\n            cc.vv.audioMgr.setBGMVolume(0);\r\n            this.refreshVolume();\r\n        } else if (event.target.name == \"set_music1\") {\r\n            this.voice.active = true;\r\n            this.help.active = false;\r\n        } else if (event.target.name == \"set_faq0\") {\r\n            this.voice.active = false;\r\n            this.help.active = true;\r\n        }\r\n    },\r\n});"
+  ]
+}

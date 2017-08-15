@@ -1,0 +1,1 @@
+pm2 start %~dp0\hall_server\app.js --name hall

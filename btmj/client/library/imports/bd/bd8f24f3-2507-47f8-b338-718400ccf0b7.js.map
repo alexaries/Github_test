@@ -1,0 +1,43 @@
+{
+  "version": 3,
+  "sources": [
+    "unknown"
+  ],
+  "names": [
+    "cc",
+    "Class",
+    "extends",
+    "Component",
+    "properties",
+    "btmj",
+    "Node",
+    "whmj",
+    "jrfj",
+    "fhfj",
+    "onLoad",
+    "initButtonHandler",
+    "vv",
+    "gameNetMgr",
+    "roomId",
+    "active",
+    "initView",
+    "onBtnBack",
+    "node",
+    "btn",
+    "utils",
+    "addClickEvent",
+    "onClickBtn",
+    "event",
+    "target",
+    "name",
+    "find",
+    "onReturnGameClicked",
+    "director",
+    "loadScene"
+  ],
+  "mappings": ";;AAAAA,GAAGC,KAAH,CAAS;AACLC,aAASF,GAAGG,SADP;AAELC,gBAAY;AACRC,cAAML,GAAGM,IADD;AAERC,cAAMP,GAAGM,IAFD;AAGRE,cAAMR,GAAGM,IAHD;AAIRG,cAAMT,GAAGM;AAJD,KAFP;AAQL;AACAI,YAAQ,kBAAW;AACf,aAAKC,iBAAL,CAAuB,KAAKN,IAA5B;AACA,aAAKM,iBAAL,CAAuB,KAAKJ,IAA5B;AACA,aAAKI,iBAAL,CAAuB,KAAKH,IAA5B;AACA,aAAKG,iBAAL,CAAuB,KAAKF,IAA5B;AACA,YAAIT,GAAGY,EAAH,CAAMC,UAAN,CAAiBC,MAArB,EAA6B;AACzB,iBAAKN,IAAL,CAAUO,MAAV,GAAmB,KAAnB;AACA,iBAAKN,IAAL,CAAUM,MAAV,GAAmB,IAAnB;AACH,SAHD,MAGO;AACH,iBAAKP,IAAL,CAAUO,MAAV,GAAmB,IAAnB;AACA,iBAAKN,IAAL,CAAUM,MAAV,GAAmB,KAAnB;AACH;AACJ,KArBI;AAsBLC,cAAU,oBAAW,CAAE,CAtBlB;AAuBLC,eAAW,qBAAW;AAClB,aAAKC,IAAL,CAAUH,MAAV,GAAmB,KAAnB;AACH,KAzBI;AA0BLJ,uBAAmB,2BAASQ,GAAT,EAAc;AAC7BnB,WAAGY,EAAH,CAAMQ,KAAN,CAAYC,aAAZ,CAA0BF,GAA1B,EAA+B,KAAKD,IAApC,EAA0C,UAA1C,EAAsD,YAAtD;AACH,KA5BI;AA6BLI,gBAAY,oBAASC,KAAT,EAAgB;AACxB,gBAAQA,MAAMC,MAAN,CAAaC,IAArB;AACI,iBAAK,SAAL;AACIzB,mBAAG0B,IAAH,CAAQ,iBAAR,EAA2BX,MAA3B,GAAoC,IAApC;AACA;AACJ,iBAAK,SAAL;AACI,qBAAKY,mBAAL;AACA;AACJ,iBAAK,QAAL;AACI,oBAAI3B,GAAGY,EAAH,CAAMC,UAAN,CAAiBC,MAArB,EAA6B;AACzB,yBAAKa,mBAAL;AACH,iBAFD,MAEK;AACD3B,uBAAG0B,IAAH,CAAQ,mBAAR,EAA6BX,MAA7B,GAAsC,IAAtC;AACH;AACD;AACJ,iBAAK,OAAL;AACI;AACA;AAhBR;AAkBH,KAhDI;AAiDLY,yBAAqB,+BAAW;AAC5B3B,WAAG4B,QAAH,CAAYC,SAAZ,CAAsB,QAAtB;AACH;AAnDI,CAAT",
+  "file": "unknown",
+  "sourcesContent": [
+    "cc.Class({\r\n    extends: cc.Component,\r\n    properties: {\r\n        btmj: cc.Node,\r\n        whmj: cc.Node,\r\n        jrfj: cc.Node,\r\n        fhfj: cc.Node,\r\n    },\r\n    // use this for initialization\r\n    onLoad: function() {\r\n        this.initButtonHandler(this.btmj);\r\n        this.initButtonHandler(this.whmj);\r\n        this.initButtonHandler(this.jrfj);\r\n        this.initButtonHandler(this.fhfj);\r\n        if (cc.vv.gameNetMgr.roomId) {\r\n            this.jrfj.active = false;\r\n            this.fhfj.active = true;\r\n        } else {\r\n            this.jrfj.active = true;\r\n            this.fhfj.active = false;\r\n        }\r\n    },\r\n    initView: function() {},\r\n    onBtnBack: function() {\r\n        this.node.active = false;\r\n    },\r\n    initButtonHandler: function(btn) {\r\n        cc.vv.utils.addClickEvent(btn, this.node, \"SelectMj\", \"onClickBtn\");\r\n    },\r\n    onClickBtn: function(event) {\r\n        switch (event.target.name) {\r\n            case 'mj_join':\r\n                cc.find(\"Canvas/JoinGame\").active = true;\r\n                break;\r\n            case 'mj_back':\r\n                this.onReturnGameClicked();\r\n                break;\r\n            case 'baotou':\r\n                if (cc.vv.gameNetMgr.roomId) {\r\n                    this.onReturnGameClicked();\r\n                }else{\r\n                    cc.find(\"Canvas/CreateRoom\").active = true;\r\n                }\r\n                break;\r\n            case 'wuhan':\r\n                // cc.find(\"Canvas/JoinGame\").active = true;\r\n                break;\r\n        }\r\n    },\r\n    onReturnGameClicked: function() {\r\n        cc.director.loadScene(\"mjgame\");\r\n    },\r\n    // called every frame, uncomment this function to activate update callback\r\n    // update: function (dt) {\r\n    // },\r\n});"
+  ]
+}

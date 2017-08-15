@@ -1,0 +1,1 @@
+pm2 start %~dp0\robot_server\app.js --name robot

@@ -1,0 +1,22 @@
+{
+  "__type__": "cc.SpriteFrame",
+  "content": {
+    "name": "newui",
+    "texture": "4fd371e3-b653-4323-9f61-9c35a6275259",
+    "atlas": "",
+    "rect": [
+      5,
+      5,
+      380,
+      641
+    ],
+    "offset": [
+      0.5,
+      -1
+    ],
+    "originalSize": [
+      389,
+      649
+    ]
+  }
+}

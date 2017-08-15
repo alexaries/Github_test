@@ -1,0 +1,22 @@
+{
+  "__type__": "cc.SpriteFrame",
+  "content": {
+    "name": "douniu_wuhua",
+    "texture": "887ee63f-9baa-41f8-99de-6b5b5ef93449",
+    "atlas": "554ad7f1-38fd-4483-a6b3-0e3ae837a8d8",
+    "rect": [
+      1057,
+      409,
+      62,
+      30
+    ],
+    "offset": [
+      0,
+      0
+    ],
+    "originalSize": [
+      62,
+      30
+    ]
+  }
+}

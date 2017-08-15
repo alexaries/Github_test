@@ -1,0 +1,22 @@
+{
+  "__type__": "cc.SpriteFrame",
+  "content": {
+    "name": "chi_2",
+    "texture": "89e4a440-7b9a-404b-bba5-75350371dd77",
+    "atlas": "",
+    "rect": [
+      2,
+      15,
+      478,
+      153
+    ],
+    "offset": [
+      -9,
+      -1.5
+    ],
+    "originalSize": [
+      500,
+      180
+    ]
+  }
+}

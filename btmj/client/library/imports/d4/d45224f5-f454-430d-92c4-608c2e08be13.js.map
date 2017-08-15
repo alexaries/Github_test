@@ -1,0 +1,35 @@
+{
+  "version": 3,
+  "sources": [
+    "unknown"
+  ],
+  "names": [
+    "cc",
+    "Class",
+    "extends",
+    "Component",
+    "initHandlers",
+    "GameNet",
+    "self",
+    "vv",
+    "match_net",
+    "addHandler",
+    "data",
+    "alert",
+    "show",
+    "console",
+    "log",
+    "userMgr",
+    "enterRoom",
+    "roomid",
+    "msg",
+    "isWin",
+    "close",
+    "ranking"
+  ],
+  "mappings": ";;AAAAA,GAAGC,KAAH,CAAS;AACLC,aAASF,GAAGG,SADP;AAELC,kBAAc,sBAASC,OAAT,EAAkB;AAC5B,YAAIC,OAAOD,OAAX;AACAL,WAAGO,EAAH,CAAMC,SAAN,CAAgBC,UAAhB,CAA2B,QAA3B,EAAqC,UAASC,IAAT,EAAe;AAChDV,eAAGO,EAAH,CAAMI,KAAN,CAAYC,IAAZ,CAAiB,IAAjB,EAAuB,0BAAvB;AACH,SAFD;AAGAZ,WAAGO,EAAH,CAAMC,SAAN,CAAgBC,UAAhB,CAA2B,aAA3B,EAA0C,UAASC,IAAT,EAAe;AACrDV,eAAGO,EAAH,CAAMI,KAAN,CAAYC,IAAZ,CAAiB,IAAjB,EAAuB,WAAvB;AACH,SAFD;AAGAZ,WAAGO,EAAH,CAAMC,SAAN,CAAgBC,UAAhB,CAA2B,qBAA3B,EAAkD,UAASC,IAAT,EAAe;AAC7DG,oBAAQC,GAAR,CAAY,qBAAZ,EAAmCJ,IAAnC;AACA;AACAV,eAAGO,EAAH,CAAMQ,OAAN,CAAcC,SAAd,CAAwBN,KAAKO,MAA7B;AACH,SAJD;AAKAjB,WAAGO,EAAH,CAAMC,SAAN,CAAgBC,UAAhB,CAA2B,cAA3B,EAA2C,UAASC,IAAT,EAAe;AACtDG,oBAAQC,GAAR,CAAY,cAAZ,EAA4BJ,IAA5B;AACA;AACA,gBAAI,CAACA,IAAL,EAAW;AACP;AACH;AACD,gBAAIQ,MAAM,SAAV;AACA,gBAAIR,KAAKS,KAAT,EAAgB;AACZD,uBAAO,UAAP;AACH,aAFD,MAEO;AACHA,uBAAO,QAAP;AACAlB,mBAAGO,EAAH,CAAMC,SAAN,CAAgBY,KAAhB;AACH;AACDpB,eAAGO,EAAH,CAAMI,KAAN,CAAYC,IAAZ,CAAiB,IAAjB,EAAuBM,GAAvB;AACH,SAdD;AAeAlB,WAAGO,EAAH,CAAMC,SAAN,CAAgBC,UAAhB,CAA2B,YAA3B,EAAyC,UAASC,IAAT,EAAe;AACpDG,oBAAQC,GAAR,CAAY,YAAZ,EAA0BJ,IAA1B;AACA;AACA,gBAAI,CAACA,IAAL,EAAW;AACP;AACH;AACD,gBAAIQ,MAAM,QAAV;AACA,gBAAIG,UAAUX,KAAKW,OAAnB,CAPoD,CAOxB;AAC5B,gBAAIA,WAAW,CAAf,EAAkB;AACdH,uBAAO,QAAP;AACH,aAFD,MAEO,IAAIG,WAAW,CAAf,EAAkB;AACrBH,uBAAO,SAAP;AACH,aAFM,MAEA,IAAIG,WAAW,CAAf,EAAkB;AACrBH,uBAAO,SAAP;AACH;AACDlB,eAAGO,EAAH,CAAMC,SAAN,CAAgBY,KAAhB;AACA;AACA;AACA;AACA;AACA;AACA;AACA;AACApB,eAAGO,EAAH,CAAMI,KAAN,CAAYC,IAAZ,CAAiB,IAAjB,EAAuBM,GAAvB;AACH,SAxBD;AAyBAlB,WAAGO,EAAH,CAAMC,SAAN,CAAgBC,UAAhB,CAA2B,YAA3B,EAAyC,UAASC,IAAT,EAAe;AACpDV,eAAGO,EAAH,CAAMC,SAAN,CAAgBY,KAAhB;AACH,SAFD;AAGH;AA1DI,CAAT",
+  "file": "unknown",
+  "sourcesContent": [
+    "cc.Class({\r\n    extends: cc.Component,\r\n    initHandlers: function(GameNet) {\r\n        var self = GameNet;\r\n        cc.vv.match_net.addHandler(\"signup\", function(data) {\r\n            cc.vv.alert.show(\"提示\", \"进入比赛队列成功！比赛人数一满您将直接进入游戏！\");\r\n        });\r\n        cc.vv.match_net.addHandler(\"signup_fail\", function(data) {\r\n            cc.vv.alert.show(\"提示\", \"进入比赛队列失败！\");\r\n        });\r\n        cc.vv.match_net.addHandler(\"create_match_finish\", function(data) {\r\n            console.log(\"create_match_finish\", data);\r\n            //达到开始比赛条件\r\n            cc.vv.userMgr.enterRoom(data.roomid);\r\n        });\r\n        cc.vv.match_net.addHandler(\"match_result\", function(data) {\r\n            console.log(\"match_result\", data);\r\n            //处理一轮比赛结果\r\n            if (!data) {\r\n                return;\r\n            }\r\n            var msg = '该轮比赛结束，';\r\n            if (data.isWin) {\r\n                msg += '恭喜进入下一轮！';\r\n            } else {\r\n                msg += '您已被淘汰！';\r\n                cc.vv.match_net.close();\r\n            }\r\n            cc.vv.alert.show('提示', msg);\r\n        });\r\n        cc.vv.match_net.addHandler(\"match_over\", function(data) {\r\n            console.log(\"match_over\", data);\r\n            //处理整个比赛结果\r\n            if (!data) {\r\n                return;\r\n            }\r\n            var msg = '锦标赛结束，';\r\n            var ranking = data.ranking; //排名\r\n            if (ranking == 1) {\r\n                msg += '恭喜获得冠军';\r\n            } else if (ranking == 2) {\r\n                msg += '恭喜获得第二名';\r\n            } else if (ranking == 3) {\r\n                msg += '恭喜获得第三名';\r\n            }\r\n            cc.vv.match_net.close();\r\n            // var reward_num = data.reward_num;\r\n            // var reward_type = data.reward_type;\r\n            // if (reward_type == 1) {\r\n            //     msg += reward_num + '金币！';\r\n            // } else if (reward_type == 2) {\r\n            //     msg += reward_num + '钻石！';\r\n            // }\r\n            cc.vv.alert.show('提示', msg);\r\n        });\r\n        cc.vv.match_net.addHandler(\"exit_match\", function(data) {\r\n            cc.vv.match_net.close();\r\n        });\r\n    }\r\n})"
+  ]
+}

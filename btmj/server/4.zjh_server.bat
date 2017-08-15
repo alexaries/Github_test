@@ -1,0 +1,1 @@
+pm2 start %~dp0\zhajinhua_server\app.js --name zhajinhua

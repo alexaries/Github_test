@@ -1,0 +1,43 @@
+{
+  "version": 3,
+  "sources": [
+    "unknown"
+  ],
+  "names": [
+    "cc",
+    "Class",
+    "extends",
+    "Component",
+    "properties",
+    "addClickEvent",
+    "node",
+    "target",
+    "component",
+    "handler",
+    "isReplace",
+    "console",
+    "log",
+    "eventHandler",
+    "EventHandler",
+    "clickEvents",
+    "getComponent",
+    "Button",
+    "push",
+    "addSlideEvent",
+    "slideEvents",
+    "Slider",
+    "showJinbi",
+    "jinbi",
+    "suffix",
+    "parseFloat",
+    "checkRate",
+    "nubmer",
+    "re",
+    "test"
+  ],
+  "mappings": ";;AAAAA,GAAGC,KAAH,CAAS;AACLC,aAASF,GAAGG,SADP;AAELC,gBAAY;AACR;AACA;AACA;AACA;AACA;AACA;AACA;AACA;AACA;AACA;AAVQ,KAFP;AAcLC,mBAAe,uBAASC,IAAT,EAAeC,MAAf,EAAuBC,SAAvB,EAAkCC,OAAlC,EAA2CC,SAA3C,EAAsD;AACjEC,gBAAQC,GAAR,CAAYJ,YAAY,GAAZ,GAAkBC,OAA9B;AACA,YAAII,eAAe,IAAIb,GAAGG,SAAH,CAAaW,YAAjB,EAAnB;AACAD,qBAAaN,MAAb,GAAsBA,MAAtB;AACAM,qBAAaL,SAAb,GAAyBA,SAAzB;AACAK,qBAAaJ,OAAb,GAAuBA,OAAvB;AACA,YAAIM,cAAcT,KAAKU,YAAL,CAAkBhB,GAAGiB,MAArB,EAA6BF,WAA/C;AACA,YAAIL,SAAJ,EAAe;AACX;AACAK,wBAAY,CAAZ,IAAiBF,YAAjB;AACH,SAHD,MAGO;AACHE,wBAAYG,IAAZ,CAAiBL,YAAjB;AACH;AACJ,KA3BI;AA4BLM,mBAAe,uBAASb,IAAT,EAAeC,MAAf,EAAuBC,SAAvB,EAAkCC,OAAlC,EAA2C;AACtD,YAAII,eAAe,IAAIb,GAAGG,SAAH,CAAaW,YAAjB,EAAnB;AACAD,qBAAaN,MAAb,GAAsBA,MAAtB;AACAM,qBAAaL,SAAb,GAAyBA,SAAzB;AACAK,qBAAaJ,OAAb,GAAuBA,OAAvB;AACA,YAAIW,cAAcd,KAAKU,YAAL,CAAkBhB,GAAGqB,MAArB,EAA6BD,WAA/C;AACAA,oBAAYF,IAAZ,CAAiBL,YAAjB;AACH,KAnCI;AAoCL;AACA;AACA;AACAS,eAAW,mBAASC,KAAT,EAAgBC,MAAhB,EAAwB;AAC/B,YAAI,CAACA,MAAL,EAAa;AACTA,qBAAS,GAAT;AACH;AACD,YAAID,QAAQE,WAAWF,KAAX,CAAZ;AACA,YAAIA,SAAS,KAAb,EAAoB;AAChBA,qBAAS,KAAT;AACAA,oBAAQA,QAAQC,MAAhB;AACA,mBAAOD,KAAP;AACH;AACD,eAAOA,KAAP;AACH,KAlDI;;AAoDLG,eAAW,mBAASC,MAAT,EAAiB;AACxB;AACA;AACA;AACA,YAAIC,KAAK,kBAAT;AACA,YAAI,CAACA,GAAGC,IAAH,CAAQF,MAAR,CAAL,EAAsB;AAClB,mBAAO,KAAP;AACH;AACD,eAAO,IAAP;AACH;AA7DI,CAAT",
+  "file": "unknown",
+  "sourcesContent": [
+    "cc.Class({\r\n    extends: cc.Component,\r\n    properties: {\r\n        // foo: {\r\n        //    default: null,      // The default value will be used only when the component attaching\r\n        //                           to a node for the first time\r\n        //    url: cc.Texture2D,  // optional, default is typeof default\r\n        //    serializable: true, // optional, default is true\r\n        //    visible: true,      // optional, default is true\r\n        //    displayName: 'Foo', // optional\r\n        //    readonly: false,    // optional, default is false\r\n        // },\r\n        // ...\r\n    },\r\n    addClickEvent: function(node, target, component, handler, isReplace) {\r\n        console.log(component + \":\" + handler);\r\n        var eventHandler = new cc.Component.EventHandler();\r\n        eventHandler.target = target;\r\n        eventHandler.component = component;\r\n        eventHandler.handler = handler;\r\n        var clickEvents = node.getComponent(cc.Button).clickEvents;\r\n        if (isReplace) {\r\n            //是否覆盖掉之前的事件\r\n            clickEvents[0] = eventHandler;\r\n        } else {\r\n            clickEvents.push(eventHandler);\r\n        }\r\n    },\r\n    addSlideEvent: function(node, target, component, handler) {\r\n        var eventHandler = new cc.Component.EventHandler();\r\n        eventHandler.target = target;\r\n        eventHandler.component = component;\r\n        eventHandler.handler = handler;\r\n        var slideEvents = node.getComponent(cc.Slider).slideEvents;\r\n        slideEvents.push(eventHandler);\r\n    },\r\n    // called every frame, uncomment this function to activate update callback\r\n    // update: function (dt) {\r\n    // },\r\n    showJinbi: function(jinbi, suffix) {\r\n        if (!suffix) {\r\n            suffix = \"万\";\r\n        }\r\n        var jinbi = parseFloat(jinbi);\r\n        if (jinbi >= 10000) {\r\n            jinbi /= 10000;\r\n            jinbi = jinbi + suffix;\r\n            return jinbi;\r\n        }\r\n        return jinbi;\r\n    },\r\n\r\n    checkRate: function(nubmer) {\r\n        //判断字符串是否为数字//\r\n        // 　　var re = /^[0-9]+.?[0-9]*$/;  \r\n        //判断正整数 /^[1-9]+[0-9]*]*$/ \r\n        var re = /^[0-9]+[0-9]*]*$/;　　\r\n        if (!re.test(nubmer)) {　　　　\r\n            return false;　　\r\n        }\r\n        return true;\r\n    }\r\n});"
+  ]
+}

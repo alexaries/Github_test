@@ -1,0 +1,1 @@
+pm2 start %~dp0\caiquan_server\app.js --name caiquan

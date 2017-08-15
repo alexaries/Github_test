@@ -1,0 +1,30 @@
+{
+  "collision-matrix": [
+    [
+      true
+    ]
+  ],
+  "design-resolution-height": 720,
+  "design-resolution-width": 1280,
+  "excluded-modules": [
+    "TiledMap",
+    "Spine Skeleton",
+    "ParticleSystem",
+    "Collider",
+    "VideoPlayer",
+    "DragonBones"
+  ],
+  "fit-height": true,
+  "fit-width": false,
+  "group-list": [
+    "default"
+  ],
+  "simulator-orientation": false,
+  "simulator-resolution": {
+    "height": 640,
+    "width": 960
+  },
+  "start-scene": "7b486d14-13bc-4be8-91e6-2efa50fc8715",
+  "use-customize-simulator": false,
+  "use-project-simulator-setting": false
+}

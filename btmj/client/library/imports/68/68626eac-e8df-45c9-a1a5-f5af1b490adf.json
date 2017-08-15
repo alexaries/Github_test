@@ -1,0 +1,23 @@
+{
+  "__type__": "cc.SpriteFrame",
+  "content": {
+    "name": "jbs_dou_",
+    "texture": "72c30976-b0cd-4ca5-ab6c-1312d15b4cdf",
+    "atlas": "25b249ea-32f9-4f24-94bc-6ee3ea1336fd",
+    "rect": [
+      1744,
+      250,
+      86,
+      48
+    ],
+    "offset": [
+      0,
+      -1
+    ],
+    "originalSize": [
+      200,
+      88
+    ],
+    "rotated": 1
+  }
+}

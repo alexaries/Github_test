@@ -1,0 +1,23 @@
+{
+  "__type__": "cc.SpriteFrame",
+  "content": {
+    "name": "jbs_zuan1",
+    "texture": "72c30976-b0cd-4ca5-ab6c-1312d15b4cdf",
+    "atlas": "25b249ea-32f9-4f24-94bc-6ee3ea1336fd",
+    "rect": [
+      1503,
+      426,
+      113,
+      77
+    ],
+    "offset": [
+      1,
+      -2
+    ],
+    "originalSize": [
+      115,
+      109
+    ],
+    "rotated": 1
+  }
+}

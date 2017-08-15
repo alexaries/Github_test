@@ -1,0 +1,22 @@
+{
+  "__type__": "cc.SpriteFrame",
+  "content": {
+    "name": "anniu_00018",
+    "texture": "00fc2cf7-a565-427b-b95b-fbb6984322b2",
+    "atlas": "",
+    "rect": [
+      44,
+      50,
+      332,
+      84
+    ],
+    "offset": [
+      10,
+      -12
+    ],
+    "originalSize": [
+      400,
+      160
+    ]
+  }
+}
