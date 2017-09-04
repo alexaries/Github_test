@@ -1,6 +1,7 @@
 var userList = {};
 var userOnline = 0;
 exports.bind = function(userId, socket) {
+    userList[userId] = userList[userId] ? userList[userId] : {};
     userList[userId].socket = socket;
     userOnline++;
 };
@@ -15,7 +16,7 @@ exports.get = function(userId) {
 exports.set = function(userId, data) {
     userList[userId] = userList[userId] ? userList[userId] : {};
     for (var i in data) {
-        if(i == 'errcode' || i == 'errmsg'){
+        if (i == 'errcode' || i == 'errmsg') {
             continue;
         }
         userList[userId][i] = data[i];

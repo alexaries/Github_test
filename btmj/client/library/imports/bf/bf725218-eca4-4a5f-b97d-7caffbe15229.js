@@ -153,7 +153,7 @@ cc.Class({
             self.dispatchEvent("game_allGuo", data);
         });
         cc.vv.net.addHandler("exit_result", function (data) {
-            self.roomId = null;
+            cc.vv.gameNetMgr.roomId = null;
             self.turn = -1;
             self.seats = null;
             self.dispatchEvent("exit_result", data);
@@ -168,22 +168,22 @@ cc.Class({
             }
         });
         cc.vv.net.addHandler("dispress_push", function (data) {
-            self.roomId = null;
+            cc.vv.gameNetMgr.roomId = null;
             self.turn = -1;
             self.seats = null;
         });
         cc.vv.net.addHandler("disconnect", function (data) {
             self.dispatchEvent("exit_room");
-            if (self.roomId == null) {
+            if (cc.vv.gameNetMgr.roomId == null) {
                 cc.director.loadScene("newhall");
-                self.room_type = -1;
+                cc.vv.gameNetMgr.room_type = -1;
             } else {
                 if (self.isOver == false) {
-                    cc.vv.userMgr.oldRoomId = self.roomId;
+                    cc.vv.userMgr.oldRoomId = cc.vv.gameNetMgr.roomId;
                     self.dispatchEvent("disconnect");
                 } else {
-                    self.roomId = null;
-                    self.room_type = -1;
+                    cc.vv.gameNetMgr.roomId = null;
+                    cc.vv.gameNetMgr.room_type = -1;
                 }
             }
         });

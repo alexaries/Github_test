@@ -22,7 +22,8 @@ cc.Class({
         isOver: false,
         dissoveData: null,
         room_type: -1,
-        cq_data: null
+        cq_data: null,
+        _laiId: 0
     },
     reset: function reset() {
         this.turn = -1;
@@ -42,6 +43,8 @@ cc.Class({
             this.seats[i].ready = false;
             this.seats[i].hued = false;
             this.seats[i].tinged = false;
+            this.seats[i].fan = 0;
+            this.seats[i].singleGangs = [];
         }
     },
     clear: function clear() {
@@ -77,7 +80,6 @@ cc.Class({
                 }
             }
         }
-
         return -1;
     },
     isOwner: function isOwner() {
@@ -108,7 +110,7 @@ cc.Class({
         this.roomId = roomInfo.id;
         this.seats = roomInfo.seats;
         this.turn = detailOfGame.base_info.button;
-        this.room_type = 0;
+        this.room_type = roomInfo.room_type ? roomInfo.room_type : 0;
         var baseInfo = detailOfGame.base_info;
         for (var i = 0; i < this.seats.length; ++i) {
             var s = this.seats[i];
@@ -123,6 +125,7 @@ cc.Class({
             s.diangangs = [];
             s.wangangs = [];
             s.folds = [];
+            s.singleGangs = [];
             console.log(s);
             if (cc.vv.userMgr.userId == s.userid) {
                 this.seatIndex = i;
@@ -132,7 +135,7 @@ cc.Class({
             type: baseInfo.type
         };
         if (this.conf.type == null) {
-            this.conf.type == "ykx";
+            this.conf.type == "";
         }
     },
     getWanfa: function getWanfa() {
@@ -147,6 +150,17 @@ cc.Class({
             }
             if (conf.yipaoduoxiang == true) {
                 strArr.push(" 一炮多响");
+            }
+            return strArr.join(" ");
+        }
+        return "";
+    },
+    getWanfaWH: function getWanfaWH() {
+        var conf = this.conf;
+        if (conf) {
+            var strArr = [];
+            if (conf.maxGames) {
+                strArr.push(conf.maxGames + "局");
             }
             return strArr.join(" ");
         }
@@ -172,6 +186,8 @@ cc.Class({
             t = require('DzpkNetMgr');
         } else if (type == 100) {
             t = require('JbsNetMgr');
+        } else if (type == 5) {
+            t = require('WhNetMgr');
         }
         cc.vv.NetMgr = new t();
         cc.vv.NetMgr.initHandlers(self);
@@ -193,6 +209,17 @@ cc.Class({
                 pai: pai
             });
         }
+    },
+    singleGang: function singleGang(data, pai) {
+        var seatData = this.getSeatByID(data.userId);
+        if (seatData.holds) {
+            var idx = seatData.holds.indexOf(pai);
+            seatData.holds.splice(idx, 1);
+        }
+        seatData.singleGangs = data.singleGangs;
+        this.dispatchEvent('game_single_gang', {
+            seatData: seatData
+        });
     },
     doChupai: function doChupai(seatIndex, pai) {
         this.chupai = pai;
@@ -370,7 +397,6 @@ cc.Class({
             cc.vv.wc.hide();
             cc.vv.alert.show("注意", "进入比赛队列失败！");
         };
-
         cc.vv.wc.show("正在进入比赛队列");
         cc.vv.match_net.connect(onConnectOK, onConnectFailed);
     }

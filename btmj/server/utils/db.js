@@ -1530,3 +1530,46 @@ exports.get_match_log = function(userId, callback) {
     })
 };
 exports.query = query;
+//清理机器人
+exports.clearRobot = function(room_type) {
+    var sql_robot_users = 'SELECT userid FROM t_users WHERE robot = 1;';
+    query(sql_robot_users, function(err_robot, rows_robot, fields_robot) {
+        if (err_robot) {
+            throw err_robot;
+        } else {
+            if (rows_robot.length == 0) {
+                return;
+            }
+            var robot_arr = [];
+            for (var i in rows_robot) {
+                robot_arr.push(rows_robot[i].userid);
+            }
+            var sql = 'SELECT * FROM t_rooms WHERE room_type = ' + room_type;
+            query(sql, function(err_rooms, rows_rooms, fields_rooms) {
+                if (err_rooms) {
+                    throw err_rooms;
+                } else {
+                    var clear_sql_arr = [];
+                    for (var j in rows_rooms) {
+                        var room = rows_rooms[j];
+                        for (var n = 0; n < 5; n++) {
+                            // console.log('room',room);
+                            var userid = room['user_id' + n];
+                            // console.log('userid',userid);
+                            if (robot_arr.indexOf(userid) > -1) {
+                                var uuid = room['uuid'];
+                                var clear_sql_users = 'update t_users set roomid = null where userid = ' + userid;
+                                var clear_sql_rooms = 'update t_rooms set user_id' + n + ' = 0,user_icon' + n + ' = 0,user_name' + n + ' = null,user_score' + n + ' = 0 where uuid = ' + uuid;
+                                clear_sql_arr.push(clear_sql_users);
+                                clear_sql_arr.push(clear_sql_rooms);
+                                query(clear_sql_users,function(){});
+                                query(clear_sql_rooms,function(){});
+                            }
+                        }
+                    }
+                    // console.log('clear_sql_arr', clear_sql_arr);
+                }
+            });
+        }
+    });
+};

@@ -13,3 +13,5 @@ ping 127.0.0.1 -n 2
 start %~dp0\7.dzpk_server.bat
 ping 127.0.0.1 -n 2
 start %~dp0\8.robot_server.bat
+ping 127.0.0.1 -n 2
+start %~dp0\9.wuhan_majiang.bat

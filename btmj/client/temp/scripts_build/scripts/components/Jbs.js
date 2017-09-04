@@ -201,6 +201,7 @@ cc.Class({
                 var num_in_match = 13;
                 if (data['num_in_match'] != null && typeof data['num_in_match'] != 'undefined') {
                     num_in_match = data['num_in_match'];
+                    num_in_match = parseInt(num_in_match) % parseInt(data.enterNum);
                 }
                 info.getChildByName('hasEnter').getChildByName('num').getComponent(cc.Label).string = num_in_match + '人'; //已经加入的人数
                 info.getChildByName('enough').getComponent(cc.Label).string = '满' + data.enterNum + '人开赛';
@@ -220,10 +221,6 @@ cc.Class({
                     baoming_btn.active = false;
                     jbs_ing.active = false;
                     yibaoming_btn.active = true;
-                } else if (is_ing) {
-                    baoming_btn.active = false;
-                    jbs_ing.active = true;
-                    yibaoming_btn.active = false;
                 } else {
                     baoming_btn.active = true;
                     yibaoming_btn.active = false;

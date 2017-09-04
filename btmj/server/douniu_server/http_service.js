@@ -191,6 +191,7 @@ exports.start = function($config) {
     };
     setInterval(update, 1000);
     app.listen(config.HTTP_PORT, config.FOR_HALL_IP);
+    db.clearRobot(3);
     console.log("game server is listening on " + config.FOR_HALL_IP + ":" + config.HTTP_PORT);
 };
 exports.sendToHall = function(url, data, callback) {

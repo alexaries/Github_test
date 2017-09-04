@@ -20,6 +20,7 @@ cc.Class({
         _isReady: false,
         _isZhuang: false,
         _userId: null,
+        _fan: null,
     },
     // use this for initialization
     onLoad: function() {
@@ -34,9 +35,10 @@ cc.Class({
             this._voicemsg.active = false;
         }
         if (this._sprIcon && this._sprIcon.getComponent(cc.Button)) {
-            cc.vv.utils.addClickEvent(this._sprIcon, this.node, "Seat", "onIconClicked");
+            cc.vv.utils.addClickEvent(this._sprIcon, this.node, "whSeat", "onIconClicked");
         }
         this._offline = this.node.getChildByName("offline");
+        this._fan = this.node.getChildByName("fan") ? this.node.getChildByName("fan").getComponent(cc.Label) : null;
         this._ready = this.node.getChildByName("ready");
         this._zhuang = this.node.getChildByName("zhuang");
         this._scoreBg = this.node.getChildByName("Z_money_frame");
@@ -88,18 +90,20 @@ cc.Class({
         }
         this.node.active = this._userName != null && this._userName != "";
     },
-    setInfo(name, score, dayingjia) {
+    setInfo: function(name, score, fan) {
         this._userName = name;
         this._score = score;
         if (this._score == null) {
             this._score = 0;
         }
-        this._dayingjia = dayingjia;
         if (this._scoreBg != null) {
             this._scoreBg.active = this._score != null;
         }
         if (this._lblScore != null) {
             this._lblScore.node.active = this._score != null;
+        }
+        if (this._fan) {
+            this._fan.string = fan ? (fan + "番") : "0番";
         }
         this.refresh();
     },
@@ -107,7 +111,7 @@ cc.Class({
         this._isZhuang = value;
         if (this._zhuang) {
             this._zhuang.active = value;
-        }else{
+        } else {
             this._zhuang = this.node.getChildByName("zhuang");
             this._zhuang.active = value;
         }

@@ -25,9 +25,16 @@ cc.Class({
         _chiOptionArray: [],
         _chiOpts: null,
         _optionsData: null,
-        _canChupai: false
+        _canChupai: false,
+        _laiId: 0,
+        _kuang: [],
+        _tingsNode: null,
+        _tingsChild: null,
+        tipCountMap: [],
+        _fanLabel: [],
     },
     onLoad: function() {
+        this._tingPais = {};
         if (!cc.sys.isNative && cc.sys.isMobile) {
             var cvs = this.node.getComponent(cc.Canvas);
             cvs.fitHeight = true;
@@ -38,9 +45,8 @@ cc.Class({
             return;
         }
         this.addComponent("NoticeTip");
-        this.addComponent("GameOver");
+        this.addComponent("whGameOver");
         this.addComponent("PengGangs");
-        this.addComponent("MJRoom");
         this.addComponent("TimePointer");
         this.addComponent("GameResult");
         this.addComponent("Chat");
@@ -57,6 +63,10 @@ cc.Class({
         this._chiOptionArray = [];
         this.initWanfaLabel();
         this.onGameBeign();
+        var sf = require("wuHanMj_suanFa");
+        this.sf = new sf();
+        this._tingsNode = this.node.getChildByName("game").getChildByName("myself").getChildByName("ting");
+        this._tingsChild = this._tingsNode.getChildByName("rest");
     },
     initView: function() {
         //搜索需要的子节点
@@ -84,6 +94,7 @@ cc.Class({
             this._hupaiLists.push(sideChild.getChildByName("hupailist"));
             this._playEfxs.push(sideChild.getChildByName("play_efx").getComponent(cc.Animation));
             this._chupaiSprite.push(sideChild.getChildByName("ChuPai").children[0].getComponent(cc.Sprite));
+            this._fanLabel.push(sideChild.getChildByName("seat").getChildByName("fan").getComponent(cc.Label));
             var opt = sideChild.getChildByName("opt");
             opt.active = false;
             var sprite = opt.getChildByName("pai").getComponent(cc.Sprite);
@@ -109,83 +120,9 @@ cc.Class({
             this._chupaiSprite[i].node.active = false;
         }
     },
-    checkHasCaiShen: function() {
-        // console.log('判断是否有财神');
-        var hasCaiShen = false;
-        if (cc.vv.gameNetMgr.seatIndex == cc.vv.gameNetMgr.turn) {
-            for (var i = 0; i < this._myMJArr.length; ++i) {
-                var sprite = this._myMJArr[i];
-                if (sprite.node.mjId != null) {
-                    var type = cc.vv.mahjongmgr.getMahjongType(sprite.node.mjId);
-                    if (type == 4) {
-                        console.log("有财神");
-                        hasCaiShen = true;
-                        break;
-                    }
-                }
-            }
-        }
-        return hasCaiShen;
-    },
-    // 每摸一次牌,判断一下是否是财神
-    checkCaiShen: function() {
-        if (this.checkHasCaiShen()) {
-            var self = this;
-            //自动出花牌
-            var fn = function(node) {
-                var type = cc.vv.mahjongmgr.getMahjongType(node.mjId);
-                node.active = false;
-                self.shootCaiShen(node.mjId);
-                node.y = 0;
-                self.recordShootPos(node);
-            }
-            var node;
-            for (var i = 0; i < self._myMJArr.length; ++i) {
-                var sprite = self._myMJArr[i];
-                if (sprite.node.mjId != null) {
-                    var type = cc.vv.mahjongmgr.getMahjongType(sprite.node.mjId);
-                    if (type != 4) {
-                        sprite.node.getComponent(cc.Button).interactable = false;
-                    } else {
-                        cc.vv.global.touch_target = sprite.node;
-                        // cc.vv.gameNetMgr.turn = sprite.node;
-                        node = sprite.node;
-                        break;
-                    }
-                }
-            }
-            var fun = fn(node);
-            setTimeout(fun, 100);
-            //遍历检查看是否有未打缺的牌 如果有，则需要将不是定缺的牌设置为不可用
-            // console.log("检查是否有财神");
-        } else {
-            // console.log("没有财神");
-            if (cc.vv.gameNetMgr.seatIndex == cc.vv.gameNetMgr.turn) {
-                // console.log("没有财神:", cc.vv.gameNetMgr.seatIndex, cc.vv.gameNetMgr.turn);
-                for (var i = 0; i < 14; ++i) {
-                    var sprite = this._myMJArr[i];
-                    if (sprite.node.active == true) {
-                        sprite.node.getComponent(cc.Button).interactable = true;
-                    }
-                }
-            } else {
-                // 没有轮到出牌顺序,不能点击麻将
-                for (var i = 0; i < 14; ++i) {
-                    var sprite = this._myMJArr[i];
-                    if (sprite.node.active == true) {
-                        // 出牌默认还是可以点击的
-                        sprite.node.getComponent(cc.Button).interactable = true;
-                    }
-                }
-            }
-        }
-    },
     //如果玩家手上还有缺的牌没有打，则只能打缺牌
     initTingedHolds: function() {
         // 如果有财神,当然不能显示听牌哎
-        if (this.checkHasCaiShen()) {
-            return;
-        }
         if (cc.vv.gameNetMgr.conf == null || !cc.vv.gameNetMgr.getSelfData().tinged) {
             for (var i = 0; i < this._myMJArr.length; ++i) {
                 var sprite = this._myMJArr[i];
@@ -213,9 +150,6 @@ cc.Class({
     },
     initExtraPaiHolds: function() {
         console.log("运行到这里哦extraPaiHolds");
-        if (this.checkHasCaiShen()) {
-            return;
-        }
         var selfData = cc.vv.gameNetMgr.getSelfData();
         if (selfData.extraPais.length <= 0) {
             console.log("当前多余的牌不存在,不需要额外处理手牌");
@@ -286,6 +220,43 @@ cc.Class({
             }
         }
     },
+    initLaiziPiList: function() {
+        // console.log('开始游戏,调用财神初始化信息');
+        var seats = cc.vv.gameNetMgr.seats;
+        var seatData = seats[cc.vv.gameNetMgr.seatIndex];
+        var laiziPi = seatData.singleGangs;
+        if (laiziPi == null) {
+            return;
+        }
+        var gameChild = this.node.getChildByName("game");
+        var myselfChild = gameChild.getChildByName("myself");
+        var list = myselfChild.getChildByName("hupailist");
+        for (var i = 0; i < laiziPi.length; ++i) {
+            var mj_laiziPi_id = laiziPi[i];
+            var sprite = list.children[i].getComponent(cc.Sprite);
+            sprite.node.mjId = mj_laiziPi_id;
+            this.setSpriteFrameByMJID("M_", sprite, mj_laiziPi_id);
+        }
+    },
+    initOtherLaiziPiList: function(seatData) {
+        // console.log('初始化其他人的财神');
+        var laiziPi = seatData.singleGangs;
+        if (laiziPi == null) {
+            return;
+        }
+        var localIndex = this.getLocalIndex(seatData.seatindex);
+        var side = cc.vv.mahjongmgr.getSide(localIndex);
+        var game = this.node.getChildByName("game");
+        var sideRoot = game.getChildByName(side);
+        var side_list = sideRoot.getChildByName("hupailist");
+        var pre = cc.vv.mahjongmgr.getFoldPre(localIndex);
+        for (var i = 0; i < laiziPi.length; ++i) {
+            var mj_laiziPi_id = laiziPi[i];
+            var sprite = side_list.children[i].getComponent(cc.Sprite);
+            sprite.node.mjId = mj_laiziPi_id;
+            this.setSpriteFrameByMJID(pre, sprite, mj_laiziPi_id);
+        }
+    },
     resetPai: function(isShow) {
         //还原被拖动的牌的位置
         var touch_target = cc.vv.global.touch_target;
@@ -303,7 +274,6 @@ cc.Class({
         var self = this;
         this.node.on('game_holds', function(data) {
             self.initMahjongs();
-            self.checkCaiShen();
             var selfData = cc.vv.gameNetMgr.getSelfData();
             console.log('------------------------------------');
             console.log("selfData", selfData.extraPais);
@@ -324,10 +294,60 @@ cc.Class({
         this.node.on('game_sync', function(data) {
             self.onGameBeign();
         });
+        this.node.on('game_refreshAllTings', function(data) {
+            data = data.detail;
+            var sd = data.sd;
+            var laizi = data.laizi;
+            self.sf.calculate(sd, laizi, null, function(response) {
+                console.log("ly:calculate=>", response);
+                cc.vv.net.send('setAllTings', response);
+            });
+        });
+        this.node.on('game_fanChanged', function(data) {
+            var data = data.detail;
+            var seatIndex = cc.vv.gameNetMgr.getSeatIndexByID(data.userId);
+            var index = self.getLocalIndex(seatIndex);
+            self._fanLabel[index].string = data.fan + "番";
+        });
+        this.node.on("game_single_gang", function(data) {
+            console.log("game_single_gang", data);
+            var seatData = data.detail.seatData;
+            var seats = cc.vv.gameNetMgr.seats;
+            var s = seats[cc.vv.gameNetMgr.seatIndex];
+            s.singleGangs = seatData.singleGangs;
+            if (seatData.seatindex == cc.vv.gameNetMgr.seatIndex) {
+                self.initLaiziPiList();
+                self.initMahjongs();
+            } else {
+                self.initOtherMahjongs(seatData);
+                self.initOtherLaiziPiList(seatData);
+            }
+            //如果是自己，则刷新手牌
+            // if (seatData.seatindex == cc.vv.gameNetMgr.seatIndex) {
+            //     self._canChupai = false;
+            //     //还原被拖动的牌的位置
+            //     self.resetPai();
+            //     setTimeout(function() {
+            //         var touch_target = cc.vv.global.touch_target;
+            //         if (touch_target) {
+            //             touch_target.active = true;
+            //         }
+            //         self.initMahjongs();
+            //     }, 500);
+            // } else {
+            //     self.initOtherMahjongs(seatData);
+            // }
+            // self.showChupai();
+            // 花牌没有对应的声音
+            if (data.detail.pai < 34) {
+                var audioUrl = cc.vv.mahjongmgr.getAudioURLByMJID(data.detail.pai);
+                // console.log("audioUrl!!!" + audioUrl);
+                cc.vv.audioMgr.playSFX(audioUrl);
+            }
+        });
         this.node.on('game_chupai', function(data) {
             data = data.detail;
             self.hideChupai();
-            self.checkCaiShen();
             var selfData = cc.vv.gameNetMgr.getSelfData();
             console.log('------------------------------------');
             console.log("selfData", selfData.extraPais);
@@ -349,7 +369,7 @@ cc.Class({
             }
             //默认不可以出牌
             self._canChupai = false;
-            if (!self.checkHasCaiShen() && data.turn == cc.vv.gameNetMgr.seatIndex) {
+            if (data.turn == cc.vv.gameNetMgr.seatIndex) {
                 //判断是否可以出牌,只有当玩家没有财神,且持有话语权才能出牌(因为'game_chupai' 是发给所有人的)。
                 self._canChupai = true;
             }
@@ -372,6 +392,10 @@ cc.Class({
             }
             cc.vv.global.touch_target = null;
             cc.vv.global.shootPos = null;
+        });
+        this.node.on('game_refreshTips', function(data) {
+            self.tipCountMap = data.detail.tip;
+            self.isTings(data.detail.sd);
         });
         this.node.on('game_action', function(data) {
             self._optionsData = data.detail;
@@ -473,34 +497,6 @@ cc.Class({
                 cc.vv.audioMgr.playSFX(audioUrl);
             }
         });
-        //财神处理
-        this.node.on('game_caishen_notify', function(data) {
-            // console.log("财神事件监听!!!!!!!!!!!!!", data);
-            var seatData = data.detail;
-            // console.log('财神事件监听', seatData);
-            //如果是自己，则刷新手牌
-            // if (seatData.seatindex == cc.vv.gameNetMgr.seatIndex) {
-            //     setTimeout(function() {
-            //         var touch_target = cc.vv.global.touch_target;
-            //         if (touch_target) {
-            //             touch_target.active = true;
-            //         }
-            //         self.initCaiShenList();
-            //         self.initMahjongs();
-            //     }, 500);
-            // } else {
-            //      self.initOtherMahjongs(seatData);
-            //     self.initOtherCaiShenList(seatData);
-            // }
-            // self.showChupai();
-            if (seatData.seatindex == cc.vv.gameNetMgr.seatIndex) {
-                self.initCaiShenList();
-                self.initMahjongs();
-            } else {
-                self.initOtherMahjongs(seatData);
-                self.initOtherCaiShenList(seatData);
-            }
-        });
         this.node.on('match_exit_error', function(data) {
             //锦标赛不能退出游戏
             cc.vv.alert.show("提示", "锦标赛中不能退出游戏");
@@ -537,8 +533,8 @@ cc.Class({
             self.playEfx(localIndex, "play_peng");
             cc.vv.audioMgr.playSFX("nv/peng.mp3");
             self.hideOptions();
-            seatData.tinged = true;
-            self.showTingedFlag();
+            // seatData.tinged = true;
+            // self.showTingedFlag();
         });
         // 吃
         this.node.on("chi_notify", function(data) {
@@ -554,8 +550,8 @@ cc.Class({
             cc.vv.audioMgr.playSFX("nv/chi.mp3");
             self.hideChiOptions();
             self.hideOptions();
-            seatData.tinged = true;
-            self.showTingedFlag();
+            // seatData.tinged = true;
+            // self.showTingedFlag();
         });
         this.node.on('gang_notify', function(data) {
             self.hideChiOptions();
@@ -573,9 +569,9 @@ cc.Class({
             cc.vv.audioMgr.playSFX("nv/gang.mp3");
             console.log("---------seatData------------->>", seatData.tinged, seatData);
             if (seatData.angangs.length == 0) {
-                seatData.tinged = true;
+                // seatData.tinged = true;
             }
-            self.showTingedFlag();
+            // self.showTingedFlag();
         });
         this.node.on("hangang_notify", function(data) {
             var data = data.detail;
@@ -584,6 +580,54 @@ cc.Class({
             cc.vv.audioMgr.playSFX("nv/gang.mp3");
             self.hideOptions();
         });
+    },
+    isTings: function(seatData) {
+        var self = this;
+        var holds = this.sortHolds(seatData);
+        seatData.holds = holds;
+        this._tingPais = {};
+        for (var i = 0; i < seatData.holds.length; i++) {
+            var sd = {};
+            this.sf.y_deepCopy(true, sd, seatData);
+            sd.holds.splice(i, 1);
+            this.sf.calculate(sd, this._laiId, seatData.holds[i], function(response) {
+                if (response) {
+                    console.log(sd.holds, "==============", response);
+                    var k = response.k;
+                    if (response.tingData) {
+                        var arr = Object.keys(response.tingData);
+                        console.log(self._tingPais, "----------", arr);
+                        if (self._tingPais && arr.length > 0) {
+                            self._tingPais[k] = arr;
+                        }
+                        if (k == seatData.holds[seatData.holds.length - 1]) {
+                            self.showTingsIcon();
+                        }
+                    }
+                }
+            });
+        }
+    },
+    showTingsIcon: function() {
+        var seats = cc.vv.gameNetMgr.seats;
+        var seatData = seats[cc.vv.gameNetMgr.seatIndex];
+        var holds = this.sortHolds(seatData);
+        if (holds == null) {
+            return;
+        }
+        var lackingNum = (seatData.pengs.length + seatData.angangs.length + seatData.diangangs.length + seatData.wangangs.length + seatData.chis.length) * 3;
+        for (var i = 0; i < holds.length; ++i) {
+            var sprite = this._myMJArr[i + lackingNum];
+            var mjid = sprite.node.mjId;
+            if (sprite && sprite.node) {
+                if (this._tingPais && this._tingPais[mjid]) {
+                    console.log(mjid, i, "tingPai:====", sprite)
+                    sprite.node.getChildByName('raw').active = true;
+                } else {
+                    sprite.node.getChildByName('raw').active = false;
+                }
+            }
+        }
     },
     showChupai: function() {
         var pai = cc.vv.gameNetMgr.chupai;
@@ -786,7 +830,7 @@ cc.Class({
     },
     initWanfaLabel: function() {
         var wanfa = cc.find("Canvas/infobar/wanfa").getComponent(cc.Label);
-        wanfa.string = cc.vv.gameNetMgr.getWanfa();
+        wanfa.string = cc.vv.gameNetMgr.getWanfaWH();
     },
     initHupai: function(localIndex, pai) {
         if (cc.vv.gameNetMgr.conf.type == "ykx") {
@@ -799,19 +843,6 @@ cc.Class({
                     hupainode.active = true;
                     break;
                 }
-            }
-        }
-    },
-    // 在胡牌堆里面处理财神显示
-    initCaiShen: function(localIndex, pai) {
-        var hupailist = this._hupaiLists[localIndex];
-        for (var i = 0; i < hupailist.children.length; ++i) {
-            var hupainode = hupailist.children[i];
-            if (hupainode.active == false) {
-                var pre = cc.vv.mahjongmgr.getFoldPre(localIndex);
-                hupainode.getComponent(cc.Sprite).spriteFrame = cc.vv.mahjongmgr.getSpriteFrameByMJID(pre, pai);
-                hupainode.active = true;
-                break;
             }
         }
     },
@@ -862,14 +893,14 @@ cc.Class({
         this.gameRoot.active = true;
         this.prepareRoot.active = false;
         this.initMahjongs();
-        this.initCaiShenList();
+        this.initLaiziPiList();
         var seats = cc.vv.gameNetMgr.seats;
         for (var i in seats) {
             var seatData = seats[i];
             var localIndex = cc.vv.gameNetMgr.getLocalIndex(i);
             if (localIndex != 0) {
                 this.initOtherMahjongs(seatData);
-                this.initOtherCaiShenList(seatData);
+                this.initOtherLaiziPiList(seatData);
                 if (i == cc.vv.gameNetMgr.turn) {
                     this.initMopai(i, -1);
                 } else {
@@ -883,7 +914,6 @@ cc.Class({
             this.showAction(cc.vv.gameNetMgr.curaction);
             cc.vv.gameNetMgr.curaction = null;
         }
-        this.checkCaiShen();
         var selfData = cc.vv.gameNetMgr.getSelfData();
         console.log('------------------------------------');
         console.log("selfData", selfData);
@@ -937,28 +967,25 @@ cc.Class({
                 nc.x = this.old_node_x + touchX_diff;
                 nc.y = this.old_node_y + touchY_diff;
             }
+            self._canTouchEnd = true;
         });
         nc.on(cc.Node.EventType.TOUCH_END, function(touch) {
             if (!self._canChupai) {
                 return;
             }
-            if (!nc.getComponent(cc.Button).interactable || cc.vv.gameNetMgr.turn != cc.vv.gameNetMgr.seatIndex) {
+            if (!nc.getComponent(cc.Button).interactable || cc.vv.gameNetMgr.turn != cc.vv.gameNetMgr.seatIndex || !self._canTouchEnd) {
                 return;
             }
             var touchY_diff = touch.getLocation().y - this.old_touch_y;
             if (touchY_diff > nc.height / 2) {
                 self.recordShootPos(nc);
-                var type = cc.vv.mahjongmgr.getMahjongType(nc.mjId);
-                if (type == 4) {
-                    self.shootCaiShen(nc.mjId);
-                } else {
-                    self.shoot(nc.mjId);
-                }
+                self.shoot(nc.mjId);
                 // nc.active = false;
             }
             //还原到原始位置
             nc.x = this.old_node_x;
             nc.y = this.old_node_y;
+            self._canTouchEnd = false;
         });
         nc.on(cc.Node.EventType.TOUCH_CANCEL, function(touch) {
             if (!self._canChupai) {
@@ -971,12 +998,7 @@ cc.Class({
             var delta = touchCancel.y - this.old_touch_y;
             if (delta > nc.height / 2) {
                 self.recordShootPos(nc);
-                var type = cc.vv.mahjongmgr.getMahjongType(nc.mjId);
-                if (type == 4) {
-                    self.shootCaiShen(nc.mjId);
-                } else {
-                    self.shoot(nc.mjId);
-                }
+                self.shoot(nc.mjId);
                 nc.active = false;
             }
             //还原到原始位置
@@ -995,17 +1017,14 @@ cc.Class({
             return;
         }
         var self = this;
+        this._tingsNode.active = false;
+        this._tingsNode.removeAllChildren();
         for (var i = 0; i < this._myMJArr.length; ++i) {
             if (event.target == this._myMJArr[i].node) {
                 //如果是再次点击，则出牌
                 if (event.target == this._selectedMJ) {
                     // event.target.active = false;
-                    var type = cc.vv.mahjongmgr.getMahjongType(this._selectedMJ.mjId);
-                    if (type == 4) {
-                        this.shootCaiShen(this._selectedMJ.mjId);
-                    } else {
-                        this.shoot(this._selectedMJ.mjId);
-                    }
+                    this.shoot(this._selectedMJ.mjId);
                     this._selectedMJ.y = 0;
                     this._selectedMJ = null;
                     self.recordShootPos(event.target);
@@ -1016,6 +1035,30 @@ cc.Class({
                 }
                 event.target.y = 15;
                 this._selectedMJ = event.target;
+                if (event.target.getChildByName('raw').active) {
+                    this._tingsNode.active = true;
+                    var x = 0;
+                    console.log(this._tingPais, "-------------", this._tingPais[event.target.mjId])
+                    if (this._tingPais && this._tingPais[event.target.mjId]) {
+                        this._tingsNode.width = this._tingPais[event.target.mjId].length * 80;
+                        for (var i = 0; i < this._tingPais[event.target.mjId].length; i++) {
+                            var newNode = cc.instantiate(this._tingsChild);
+                            newNode.getChildByName("pai").getComponent(cc.Sprite).spriteFrame = cc.vv.mahjongmgr.getSpriteFrameByMJID("M_", this._tingPais[event.target.mjId][i]);
+                            if (this.tipCountMap[this._tingPais[event.target.mjId][i]]) {
+                                newNode.getChildByName("num").getComponent(cc.Label).string = this.tipCountMap[this._tingPais[event.target.mjId][i]] + "张";
+                            } else {
+                                newNode.getChildByName("num").getComponent(cc.Label).string = "0张";
+                            }
+                            if (i == 0) {
+                                newNode.x = 5 - this._tingsNode.width / 2 + newNode.getChildByName("pai").width / 2;
+                                x = newNode.x;
+                            } else {
+                                newNode.x = x + i * (newNode.getChildByName("pai").width + 3);
+                            }
+                            this._tingsNode.addChild(newNode);
+                        }
+                    }
+                }
                 return;
             }
         }
@@ -1026,15 +1069,9 @@ cc.Class({
             return;
         }
         cc.vv.net.send('chupai', mjId);
-    },
-    //出牌
-    shootCaiShen: function(mjId) {
-        console.log("财神,换牌");
-        if (mjId == null) {
-            return;
+        for (var i = 0; i < this._myMJArr.length; ++i) {
+            if (this._myMJArr[i].node.getChildByName('raw')) this._myMJArr[i].node.getChildByName('raw').active = false;
         }
-        // 一定要是财神才能进行此操作
-        cc.vv.net.send('caishen', mjId);
     },
     getMJIndex: function(side, index) {
         if (side == "right" || side == "up") {
@@ -1091,8 +1128,9 @@ cc.Class({
     },
     initOtherMahjongs: function(seatData) {
         console.log("seat:" + seatData.seatindex, seatData);
+        if (!seatData) return;
         var localIndex = this.getLocalIndex(seatData.seatindex);
-        if (localIndex == 0 || seatData) {
+        if (localIndex == 0) {
             return;
         }
         var side = cc.vv.mahjongmgr.getSide(localIndex);
@@ -1100,6 +1138,21 @@ cc.Class({
         var sideRoot = game.getChildByName(side);
         var sideHolds = sideRoot.getChildByName("holds");
         console.log('sideholds', sideHolds);
+        if (!seatData.pengs) {
+            seatData.pengs = [];
+        }
+        if (!seatData.angangs) {
+            seatData.angangs = [];
+        }
+        if (!seatData.diangangs) {
+            seatData.diangangs = [];
+        }
+        if (!seatData.wangangs) {
+            seatData.wangangs = [];
+        }
+        if (!seatData.chis) {
+            seatData.chis = [];
+        }
         var num = seatData.pengs.length + seatData.angangs.length + seatData.diangangs.length + seatData.wangangs.length + seatData.chis.length;
         num *= 3;
         for (var i = 0; i < num; ++i) {
@@ -1137,19 +1190,43 @@ cc.Class({
             mopai = holds.pop();
         }
         cc.vv.mahjongmgr.sortMJ(holds);
+        holds = this.sortWHMJ(holds);
+        seatData.holds = holds;
         //将摸牌添加到最后
         if (mopai != null) {
             holds.push(mopai);
         }
         return holds;
     },
+    sortWHMJ: function(mahjongs) {
+        var laiIndex = mahjongs.indexOf(this._laiId);
+        var newHolds = [];
+        while (laiIndex > -1) {
+            mahjongs.splice(laiIndex, 1);
+            laiIndex = mahjongs.indexOf(this._laiId);
+            newHolds.push(this._laiId);
+        }
+        for (var i = 0; i < this._kuang.length; i++) {
+            var x = mahjongs.indexOf(this._kuang[i]);
+            while (x > -1) {
+                mahjongs.splice(x, 1);
+                x = mahjongs.indexOf(this._kuang[i]);
+                newHolds.push(this._kuang[i]);
+            }
+        };
+        return newHolds.concat(mahjongs);
+    },
     initMahjongs: function() {
         var seats = cc.vv.gameNetMgr.seats;
         var seatData = seats[cc.vv.gameNetMgr.seatIndex];
+        this._laiId = seatData.laizi ? seatData.laizi : 0;
+        this._kuang = seatData._kuang ? seatData._kuang : [31];
         var holds = this.sortHolds(seatData);
         if (holds == null) {
             return;
         }
+        var s = this.node.getChildByName("game").getChildByName('laizi').getComponent(cc.Sprite);
+        this.setSpriteFrameByMJID("M_", s, this._laiId);
         console.log("seatData.chis.length", seatData.chis.length);
         console.log("this._myMJArrthis._myMJArrthis._myMJArrthis._myMJArr", this._myMJArr);
         //初始化手牌
@@ -1180,6 +1257,20 @@ cc.Class({
     },
     setSpriteFrameByMJID: function(pre, sprite, mjid) {
         sprite.spriteFrame = cc.vv.mahjongmgr.getSpriteFrameByMJID(pre, mjid);
+        if (sprite.node.getChildByName('kuang')) {
+            if (this._kuang.indexOf(mjid) > -1) {
+                sprite.node.getChildByName('kuang').active = true;
+            } else {
+                sprite.node.getChildByName('kuang').active = false;
+            }
+        }
+        if (sprite.node.getChildByName('lai')) {
+            if (mjid == this._laiId) {
+                sprite.node.getChildByName('lai').active = true;
+            } else {
+                sprite.node.getChildByName('lai').active = false;
+            }
+        }
         sprite.node.active = true;
     },
     getLocalIndex: function(index) {
@@ -1249,45 +1340,6 @@ cc.Class({
                 cc.vv.alert.show("注意", "请选择一组吃牌的组合");
             }
             console.log("向服务器发送吃牌操作--", event.target.pai);
-        }
-    },
-    initCaiShenList: function() {
-        // console.log('开始游戏,调用财神初始化信息');
-        var seats = cc.vv.gameNetMgr.seats;
-        var seatData = seats[cc.vv.gameNetMgr.seatIndex];
-        var caishen = seatData.caiShen;
-        // console.log('caiShen initCaiShenList', caishen);
-        if (caishen == null) {
-            return;
-        }
-        var gameChild = this.node.getChildByName("game");
-        var myselfChild = gameChild.getChildByName("myself");
-        var caishen_list = myselfChild.getChildByName("hupailist");
-        for (var i = 0; i < caishen.length; ++i) {
-            var mj_caishen_id = caishen[i];
-            var sprite = caishen_list.children[i].getComponent(cc.Sprite);
-            sprite.node.mjId = mj_caishen_id;
-            this.setSpriteFrameByMJID("M_", sprite, mj_caishen_id);
-        }
-    },
-    initOtherCaiShenList: function(seatData) {
-        // console.log('初始化其他人的财神');
-        var caishen = seatData.caiShen;
-        // console.log('caiShen initOtherCaiShenList', caishen);
-        if (caishen == null) {
-            return;
-        }
-        var localIndex = this.getLocalIndex(seatData.seatindex);
-        var side = cc.vv.mahjongmgr.getSide(localIndex);
-        var game = this.node.getChildByName("game");
-        var sideRoot = game.getChildByName(side);
-        var side_caishen_list = sideRoot.getChildByName("hupailist");
-        var pre = cc.vv.mahjongmgr.getFoldPre(localIndex);
-        for (var i = 0; i < caishen.length; ++i) {
-            var mj_caishen_id = caishen[i];
-            var sprite = side_caishen_list.children[i].getComponent(cc.Sprite);
-            sprite.node.mjId = mj_caishen_id;
-            this.setSpriteFrameByMJID(pre, sprite, mj_caishen_id);
         }
     },
     // called every frame, uncomment this function to activate update callback

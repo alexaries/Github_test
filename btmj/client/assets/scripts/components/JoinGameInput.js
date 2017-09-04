@@ -49,7 +49,7 @@ cc.Class({
             var data = {
                 account: cc.vv.userMgr.account,
                 sign: cc.vv.userMgr.sign,
-                room_type: 0,
+                room_type: cc.vv.mjType_joinGame,
                 roomId: roomId
             };
             var fn = function(ret) {

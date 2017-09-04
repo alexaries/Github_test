@@ -11,6 +11,7 @@ cc.Class({
     properties: {
         selectZJH: cc.Node,
         selectMJ: cc.Node,
+        selectWH: cc.Node,
         selectDN: cc.Node,
         selectDZPK: cc.Node,
         nickname: cc.Label,
@@ -20,6 +21,7 @@ cc.Class({
         _lastCheckTime: 0,
         _lastRefreshTime: 0,
         mj_online: cc.Label,
+        wh_online: cc.Label,
         zjh_online: cc.Label,
         dn_online: cc.Label,
         dzpk_online: cc.Label,
@@ -47,6 +49,7 @@ cc.Class({
         this.jinbiChange = cc.find("Canvas/jinbiChange");
         this.initButtonHandler("Canvas/scrollview/view/content/zjhbtn");
         this.initButtonHandler("Canvas/scrollview/view/content/mjbtn");
+        this.initButtonHandler("Canvas/scrollview/view/content/whbtn");
         this.initButtonHandler("Canvas/scrollview/view/content/dnbtn");
         this.initButtonHandler("Canvas/scrollview/view/content/dzpkbtn");
         this.initButtonHandler("Canvas/footer/exchange");
@@ -165,6 +168,9 @@ cc.Class({
             case 'mjbtn':
                 this.selectMJ.active = true;
                 break;
+            case 'whbtn':
+                this.selectWH.active = true;
+                break;
             case 'dnbtn':
                 this.selectDN.active = true;
                 this.selectDN.getComponent("SelectDn").initView();
@@ -262,6 +268,7 @@ cc.Class({
             self.zjh_online.string = ret['2'] + "人在线";
             self.dn_online.string = ret['3'] + "人在线";
             self.dzpk_online.string = ret['4'] + "人在线";
+            self.wh_online.string = ret['5'] + "人在线";
         };
         this._lastCheckTime = Date.now();
         var data = {
@@ -294,15 +301,17 @@ cc.Class({
         var onSearch = function onSearch(ret) {
             if (ret.errcode !== 0) {
                 cc.vv.wc.hide();
-                if (ret.errcode == 2) {
-                    if (ret.errmsg == 1) {
-                        cc.vv.alert.show("提示", "钻石不够，无法匹配");
-                    } else {
-                        cc.vv.alert.show("提示", "金币不够，无法匹配");
-                    }
-                } else {
-                    cc.vv.alert.show("提示", "创建房间失败,错误码:" + ret.errcode);
-                }
+                // if (ret.errcode == 2) {
+                //     if (ret.errmsg == 1) {
+                //         cc.vv.alert.show("提示", "钻石不够，无法匹配");
+                //     } else {
+                //         cc.vv.alert.show("提示", "金币不够，无法匹配");
+                //     }
+                // } else {
+                //     cc.vv.alert.show("提示", "创建房间失败,错误码:" + ret.errcode);
+                // }
+                console.log('错误码', ret.errcode);
+                cc.vv.alert.show("提示", ret.errmsg);
             } else {
                 cc.vv.userMgr.room_type = conf.room_type;
                 cc.vv.userMgr.scene = conf.scene;

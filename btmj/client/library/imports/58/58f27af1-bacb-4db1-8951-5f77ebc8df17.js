@@ -35,7 +35,7 @@ cc.Class({
         this._quickChatInfo = {};
         this._quickChatInfo["item0"] = {
             index: 0,
-            content: "快点啊，都等到我花儿都谢谢了！",
+            content: "快点啊，都等到我花儿都谢了！",
             sound: "fix_msg_1.mp3"
         };
         this._quickChatInfo["item1"] = {

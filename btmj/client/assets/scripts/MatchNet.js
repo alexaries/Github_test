@@ -76,6 +76,7 @@ var Global = cc.Class({
                         //FIXME: 超时设为3s
                         if (Date.now() - self.lastRecieveTime > 10000) {
                             self.close();
+                            self.reconnectMatch();
                         } else {
                             self.ping();
                         }
@@ -106,6 +107,21 @@ var Global = cc.Class({
                 this.fnDisconnect();
                 this.fnDisconnect = null;
             }
+        },
+        reconnectMatch: function() {
+            cc.vv.http.sendRequest("/injinbiao", {
+                userId: cc.vv.userMgr.userId
+            }, function(data) {
+                if (data.ip) {
+                    cc.vv.match_net.ip = data.ip + ":" + data.port;
+                    cc.vv.match_net.connect(function() {
+                        cc.vv.gameNetMgr.initHandlers(100);
+                        cc.vv.match_net.send("reconnect", {
+                            userid: self.userId
+                        });
+                    }, function() {});
+                };
+            });
         },
         test: function(fnResult) {
             var xhr = null;

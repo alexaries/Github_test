@@ -1,0 +1,1 @@
+pm2 start %~dp0\wh_majiang_server\app.js --name wuhanMajiang

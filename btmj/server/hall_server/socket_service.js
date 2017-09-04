@@ -44,7 +44,7 @@ exports.start = function($config, mgr) {
             userList[userId] = socket;
             timetmp[userId] = Date.now();
             if (matchlist[userId]) {
-                return socket.emit('signup_fail');
+                return;
             };
             socket.emit('signup');
             var num_per_group; //每个房间的人数
@@ -84,7 +84,7 @@ exports.start = function($config, mgr) {
                             console.log('当前报名的人', mjList[data.id]);
                             console.log('已报名人数', mjList[data.id].length);
                             if (mjList[data.id][queue].player.length == data.enterNum) { //人满即开
-                                if (!checkList(mjList[data.id][queue])) return;
+                                if (!checkList(mjList[data.id][queue].player)) return;
                                 mjList[data.id][queue].status = true;
                                 match_log(mjList[data.id][queue].player, data.id);
                                 var tmp = slice_list(mjList[data.id][queue].player, num_per_group);
@@ -118,20 +118,6 @@ exports.start = function($config, mgr) {
                                 } else {
                                     queue = zjhList[data.id].length - 1;
                                 }
-
-                                // if(zjhList[data.id][zjhList[data.id].length - 1].player.length >= data.enterNum){
-                                //     queue = zjhList[data.id].length;
-                                //     zjhList[data.id][queue] = {};
-                                //     zjhList[data.id][queue].status = false;
-                                //     zjhList[data.id][queue].player = [];
-                                // }else{
-                                //     if(zjhList[data.id][zjhList[data.id].length - 1].status){
-                                //         queue = zjhList[data.id].length;
-                                //     }else{
-                                //         queue = zjhList[data.id].length - 1;
-                                //     }
-
-                                // }
                             }
                             matchlist[userId] = matchtmp[userId] = [data.id, 1, queue, data.enterNum];
                             zjhList[data.id][queue].player.push(userId);
@@ -188,7 +174,7 @@ exports.start = function($config, mgr) {
                             console.log('当前报名的人', dnList[data.id]);
                             console.log('已报名人数', dnList[data.id][queue].player.length);
                             if (dnList[data.id][queue].player.length == data.enterNum) { //人满即开
-                                if (!checkList(dnList[data.id][queue])) return;
+                                if (!checkList(dnList[data.id][queue].player)) return;
                                 dnList[data.id][queue].status = true;
                                 match_log(dnList[data.id][queue].player, data.id);
                                 var tmp = slice_list(dnList[data.id][queue].player, num_per_group);
@@ -207,6 +193,18 @@ exports.start = function($config, mgr) {
                     break;
             }
         });
+        socket.on('reconnect', function(data) {
+            data = JSON.parse(data);
+            var userId = data.userid;
+            socket.userId = userId;
+            userList[userId] = socket;
+            timetmp[userId] = Date.now();
+            db.get_room_id_of_user(userId, function(roomid){
+                if(roomid) {
+                    sendMsg(userId, 'create_match_finish', {roomid: roomid});
+                }
+            })
+        })
         socket.on('game_ping', function(data) {
             var userId = socket.userId;
             if (!userId) {
@@ -251,6 +249,8 @@ function begin_match(group, type) {
             var delay = 5000;
             setTimeout(function() {
                 if (data.errcode == 0) {
+                    group = checkNextList(group);
+                    db.set_room_id_of_user(group[i], data.roomid);
                     console.log('通知前端这些人开始比赛', group);
                     for (var i in group) {
                         sendMsg(group[i], 'create_match_finish', data);
@@ -538,31 +538,27 @@ exports.exit_match = function(userId) {
     userList[userId].emit('exit_match');
     return true;
 }
-
 exports.ising = function(userId, match_id) {
     var info = matchlist[userId];
     if (!info) return ['false'];
     if (match_id > 0 && match_id <= 3) {
-        if (zjhList[match_id] && zjhList[match_id][info[2]].status) {
+        if (zjhList[match_id] && zjhList[match_id][info[2]] && zjhList[match_id][info[2]].status) {
             return ['true', zjhList[match_id][info[2]].player.length];
         } else {
             return ['false'];
         };
-
     } else if (match_id >= 4 && match_id <= 6) {
-        if (dnList[match_id] && dnList[match_id][info[2]].status) {
+        if (dnList[match_id] && dnList[match_id][info[2]] && dnList[match_id][info[2]].status) {
             return ['true', dnList[match_id][info[2]].player.length];
         } else {
             return ['false'];
         };
-
     } else if (match_id >= 7 && match_id <= 9) {
-        if (mjList[match_id] && mjList[match_id][info[2]].status) {
+        if (mjList[match_id] && mjList[match_id][info[2]] && mjList[match_id][info[2]].status) {
             return ['true', mjList[match_id][info[2]].player.length];
         } else {
             return ['false'];
         };
-
     }
 }
 
@@ -705,6 +701,21 @@ function checkList(obj) {
         }
     }
     return flag;
+}
+
+function checkNextList(obj) {
+    for (var i in obj) {
+        var userId = obj[i];
+        if ((Date.now() - timetmp[userId]) > 10000) {
+            console.log('checkList flag==false userId', userId);
+            removeByValue(obj, userId);
+            delete(matchtmp[userId]);
+            delete(matchlist[userId]);
+            delete(userList[userId]);
+            delete(timetmp[userId]);
+        }
+    }
+    return obj;
 }
 exports.flushall = function() {
     for (var i in userList) {

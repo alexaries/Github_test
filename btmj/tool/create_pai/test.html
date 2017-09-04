@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>utf8.js test suite</title>
+    <script type="text/javascript" src="jquery.js"></script>
+    <script type="text/javascript" src="helper.js"></script>
+    <script type="text/javascript" src="whmj_sf.js"></script>
+    <script type="text/javascript" src="whm_test.js"></script>
+    <script type="text/javascript">
+    $(
+        function() {
+            $(".fresh").trigger("click");
+            setTimeout(function() {
+                $(".create").trigger("click");
+            }, 50);
+        }
+    );
+    </script>
+</head>
+
+<body>
+    <div id="parent" style="line-height: 3">
+        <div style="padding-bottom: 10px;">请输入牌型：</div>
+        <span class="span1" style="padding: 5px;border:2px solid #000">
+            <select class="prefix">
+                <option value="0">1</option>
+                <option value="1">2</option>
+                <option value="2">3</option>
+                <option value="3">4</option>
+                <option value="4">5</option>
+                <option value="5">6</option>
+                <option value="6">7</option>
+                <option value="7">8</option>
+                <option value="8">9</option>
+            </select>
+            <select class="suffix">
+                <option value="tong">筒</option>
+                <option value="tiao">条</option>
+                <option value="wan">万</option>
+                <option value="feng">风</option>
+            </select>
+        </span>
+    </div>
+    <div id="laizi" style="line-height: 3">
+        <div style="padding-bottom: 10px;">请输入赖子：</div>
+        <span class="span_laizi" style="padding: 5px;border:2px solid #000">
+            <select class="prefix">
+                <option value="0">1</option>
+                <option value="1">2</option>
+                <option value="2">3</option>
+                <option value="3">4</option>
+                <option value="4">5</option>
+                <option value="5">6</option>
+                <option value="6">7</option>
+                <option value="7">8</option>
+                <option value="8">9</option>
+            </select>
+            <select class="suffix">
+                <option value="tong">筒</option>
+                <option value="tiao">条</option>
+                <option value="wan">万</option>
+                <option value="feng">风</option>
+            </select>
+        </span>
+    </div>
+    <button class="create">生成牌型</button>
+    <button class="fresh">刷新</button>
+    <div class="afterCreate" style="display: none;">
+        <div>
+            <span>手牌为：</span>
+            <span class="paiArr"></span>
+        </div>
+        <div>
+            <span>id为：</span>
+            <span class="paiIdArr"></span>
+        </div>
+        <div>
+            <span>赖子为：</span>
+            <span class="laiziId"></span>
+        </div>
+        <div>
+            <span>开始计算时间：</span>
+            <span class="startTime"></span>
+        </div>
+        <div class="result" style="text-align:center">
+            <span>听牌结果：</span>
+            <table class="ret" align="center" border="1">
+                <!-- <tr>
+                    <td>听的牌</td>
+                    <td>胡牌</td>
+                    <td>是否清一色</td>
+                    <td>赖子被当成万能牌的个数</td>
+                    <td>是否能硬胡</td>
+                    <td>是否以258为将</td>
+                </tr> -->
+            </table>
+        </div>
+        <div>
+            <span>结束计算时间：</span>
+            <span class="endTime"></span>
+        </div>
+        <div>
+            <span>计算时长：</span>
+            <span class="diffTime"></span>
+            <span>毫秒</span>
+        </div>
+    </div>
+    <script type="text/javascript" src="create.js"></script>
+</body>
+
+</html>

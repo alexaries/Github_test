@@ -1,5 +1,6 @@
 var crypto = require('../utils/crypto');
 var express = require('express');
+var bodyParser = require('body-parser');
 var db = require('../utils/db');
 var http = require('../utils/http');
 var redis = require('redis');
@@ -40,6 +41,12 @@ app.all('*', function(req, res, next) {
     res.header("Content-Type", "application/json;charset=utf-8");
     next();
 });
+//设置post解析
+app.use(bodyParser.json()); // for parsing application/json
+app.use(bodyParser.urlencoded({
+    extended: true
+})); // for parsing application/x-www-form-urlencoded
+
 app.get('/login', function(req, res) {
     if (!check_account(req, res)) {
         return;
@@ -1095,11 +1102,18 @@ app.get('/get_match_log', function(req, res) {
             http.send(res, 0, "success", d);
         })
     })
-})
+});
 app.get('/flushall', function(req, res) {
     socket.flushall();
     http.send(res, 0, "success", true);
 });
+//测试是否和牌接口，post方式 begin
+app.post('/isHu', function(req, res) {
+    console.log('isHu', req.body);
+    var pai_arr = req.body.pai_arr;
+    http.send(res, 0, "success", pai_arr);
+});
+//测试是否和牌接口，post方式 end
 exports.start = function($config) {
     config = $config;
     client = redis.createClient(config.REDIS_PORT, config.REDIS_IP);

@@ -124,7 +124,7 @@ exports.initHandlers = function(socket, type) {
         net.addHandler(socket, "game_over", function(data) {
             setTimeout(function() {
                 net.send(socket, "ready");
-            }, 3000);
+            }, 5500);
         });
         net.addHandler(socket, "game_zhuangSelected_push", function(data) {
             net.send(socket, "zhuangEndFromClient");

@@ -122,6 +122,9 @@ cc.Class({
         cc.vv.net.addHandler("game_turnChanged_push", function (data) {
             self.dispatchEvent('game_turnChanged_push', data);
         });
+        cc.vv.net.addHandler("game_timerInitCounter_push", function (data) {
+            self.dispatchEvent('game_timerInitCounter_push', data);
+        });
         cc.vv.net.addHandler("guo_notify_push", function (data) {
             self.dispatchEvent('guo_notify_push', data);
         });

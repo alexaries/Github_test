@@ -122,19 +122,21 @@ cc.Class({
             if (ret.errcode !== 0) {
                 cc.vv.wc.hide();
                 //console.log(ret.errmsg);
-                if (ret.errcode == 2) {
-                    if (ret.errmsg == -1) {
-                        cc.vv.alert.show("提示", "钻石不够，无法匹配");
-                    } else {
-                        cc.vv.alert.show("提示", "金币不够，无法匹配");
-                    }
-                } else {
-                    if (ret.errcode == -3) {
-                        cc.vv.alert.show("提示", "您已加入房间，无法匹配");
-                    } else {
-                        cc.vv.alert.show("提示", "创建房间失败,错误码:" + ret.errcode);
-                    }
-                }
+                // if (ret.errcode == 2) {
+                //     if (ret.errmsg == -1) {
+                //         cc.vv.alert.show("提示", "钻石不够，无法匹配");
+                //     } else {
+                //         cc.vv.alert.show("提示", "金币不够，无法匹配");
+                //     }
+                // } else {
+                //     if (ret.errcode == -3) {
+                //         cc.vv.alert.show("提示", "您已加入房间，无法匹配");
+                //     } else {
+                //         cc.vv.alert.show("提示", "创建房间失败,错误码:" + ret.errcode);
+                //     }
+                // }
+                console.log('错误码', ret.errcode);
+                cc.vv.alert.show("提示", ret.errmsg);
             } else {
                 cc.vv.userMgr.room_type = conf.room_type;
                 cc.vv.userMgr.scene = conf.scene;

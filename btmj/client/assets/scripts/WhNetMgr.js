@@ -20,7 +20,7 @@ cc.Class({
         });
         cc.vv.net.addHandler("login_finished", function(data) {
             console.log("login_finished");
-            cc.director.loadScene("mjgame");
+            cc.director.loadScene("whmj");
         });
         cc.vv.net.addHandler("exit_result", function(data) {
             self.roomId = null;
@@ -35,6 +35,15 @@ cc.Class({
                 s.name = "";
                 self.dispatchEvent("user_state_changed", s);
             }
+        });
+        cc.vv.net.addHandler("game_refreshAllTings_push", function(data) {
+            self.dispatchEvent("game_refreshAllTings", data);
+        });
+        cc.vv.net.addHandler("game_single_gang_push", function(data) {
+            // self.dispatchEvent("game_single_gang", data);
+            var seatData = data.sd;
+            var pai = data.pai;
+            self.singleGang(seatData, pai);
         });
         cc.vv.net.addHandler("dispress_push", function(data) {
             self.roomId = null;
@@ -63,7 +72,6 @@ cc.Class({
             self.dispatchEvent('match_exit_error');
         });
         cc.vv.net.addHandler("new_user_comes_push", function(data) {
-            //console.log(data);
             var seatIndex = data.seatindex;
             if (self.seats[seatIndex].userid > 0) {
                 self.seats[seatIndex].online = true;
@@ -120,6 +128,9 @@ cc.Class({
                 if (!s.wangangs) {
                     s.wangangs = [];
                 }
+                if (!s.singleGangs) {
+                    s.singleGangs = [];
+                }
                 s.ready = false;
             }
             self.dispatchEvent('game_holds');
@@ -131,6 +142,18 @@ cc.Class({
             self.turn = self.button;
             self.gamestate = "begin";
             self.dispatchEvent('game_begin');
+        });
+        cc.vv.net.addHandler("game_config_push", function(data) {
+            var seat = self.seats[self.seatIndex];
+            seat.laizi = data.laizi;
+            self._laiId = seat.laizi;
+            data.sgArr.splice(0, 1);
+            seat._kuang = data.sgArr.sort();
+        });
+        cc.vv.net.addHandler("game_fanChanged_push", function(data) {
+            var sd = cc.vv.gameNetMgr.getSeatByID(data.userId);
+            sd.fan = data.fan;
+            self.dispatchEvent('game_fanChanged', data);
         });
         cc.vv.net.addHandler("game_playing_push", function(data) {
             console.log('game_playing_push');
@@ -161,6 +184,8 @@ cc.Class({
                 seat.tinged = sd.tinged;
                 seat.iszimo = sd.iszimo;
                 seat.huinfo = sd.huinfo;
+                seat.fan = sd.fan ? sd.fan : 0;
+                seat.singleGangs = sd.singleGangs ? sd.singleGangs : [];
             }
         });
         cc.vv.net.addHandler("game_action_push", function(data) {
@@ -169,11 +194,9 @@ cc.Class({
             console.log("game_action_push---获得所以操作的数据", data);
             self.dispatchEvent('game_action', data);
         });
-
         cc.vv.net.addHandler("game_timerBegin_push", function(data) {
             self.dispatchEvent('game_timerBegin', data);
         });
-
         cc.vv.net.addHandler("game_chupai_push", function(data) {
             console.log('game_chupai_push');
             //console.log(data);
@@ -225,6 +248,9 @@ cc.Class({
             console.log('game_mopai_push');
             self.doMopai(self.seatIndex, data);
         });
+        cc.vv.net.addHandler("game_refreshTips_push", function(data) {
+            self.dispatchEvent('game_refreshTips', data);
+        });
         cc.vv.net.addHandler("guo_notify_push", function(data) {
             console.log('guo_notify_push');
             var userId = data.userId;
@@ -269,15 +295,6 @@ cc.Class({
             var pai = data.pai;
             var si = self.getSeatIndexByID(userId);
             self.doGang(si, pai, data.gangtype);
-        });
-        //  财神弃牌操作
-        cc.vv.net.addHandler("game_caishen_notify_push", function(data) {
-            console.log("财神弃牌操作");
-            var userId = data.userId;
-            var pai = data.pai;
-            var si = self.getSeatIndexByID(userId);
-            console.log('财神弃牌操作!!!!!!!!!!', data);
-            self.doCaiShen(si, pai);
         });
         cc.vv.net.addHandler("chat_push", function(data) {
             self.dispatchEvent("chat_push", data);

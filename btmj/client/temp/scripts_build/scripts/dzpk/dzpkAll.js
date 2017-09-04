@@ -21,6 +21,7 @@ cc.Class({
         back: cc.Node,
         fanhui: cc.Node,
         bg: cc.Node,
+        helpshow: cc.Node,
         backAlert: cc.Node,
         backAlert_no: cc.Node,
         fan: cc.Node,
@@ -51,6 +52,7 @@ cc.Class({
         if (cc.vv == null) {
             return;
         }
+        this.addComponent("ReConnect");
         for (var i = 0; i < 5; i++) {
             this._seats.push(cc.find("Canvas/seat" + i).getComponent("dzpkSeat"));
         }
@@ -108,7 +110,6 @@ cc.Class({
         cc.vv.utils.addClickEvent(this._rangPai, this.node, "dzpkAll", "onBtnClicked");
         cc.vv.utils.addClickEvent(this._qiPai, this.node, "dzpkAll", "onBtnClicked");
         cc.vv.utils.addClickEvent(this._jiaZhu, this.node, "dzpkAll", "onBtnClicked");
-        this.addComponent("ReConnect");
         cc.vv.utils.addClickEvent(this.back, this.node, "dzpkAll", "onBtnClicked");
         cc.vv.utils.addClickEvent(this.fanhui, this.node, "dzpkAll", "onBtnClicked");
         cc.vv.utils.addClickEvent(this.fan, this.node, "dzpkAll", "onBtnClicked");
@@ -178,6 +179,7 @@ cc.Class({
         }
         if (event.target.name == "bg") {
             this.fanhui.active = false;
+            this.helpshow.active = false;
             if (this._btnThird.active) {
                 this._btnThird.active = false;
                 this._btnSecond.active = true;
@@ -186,6 +188,10 @@ cc.Class({
         if (event.target.name == "fan") {
             this.fanhui.active = false;
             this.backAlert.active = true;
+        }
+        if (event.target.name == "pai") {
+            this.fanhui.active = false;
+            this.helpshow.active = true;
         }
         if (event.target.name == "no") {
             this.fanhui.active = false;

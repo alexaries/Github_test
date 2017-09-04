@@ -940,12 +940,13 @@ cc.Class({
                 nc.x = this.old_node_x + touchX_diff;
                 nc.y = this.old_node_y + touchY_diff;
             }
+            self._canTouchEnd = true;
         });
         nc.on(cc.Node.EventType.TOUCH_END, function (touch) {
             if (!self._canChupai) {
                 return;
             }
-            if (!nc.getComponent(cc.Button).interactable || cc.vv.gameNetMgr.turn != cc.vv.gameNetMgr.seatIndex) {
+            if (!nc.getComponent(cc.Button).interactable || cc.vv.gameNetMgr.turn != cc.vv.gameNetMgr.seatIndex || !self._canTouchEnd) {
                 return;
             }
             var touchY_diff = touch.getLocation().y - this.old_touch_y;
@@ -962,6 +963,7 @@ cc.Class({
             //还原到原始位置
             nc.x = this.old_node_x;
             nc.y = this.old_node_y;
+            self._canTouchEnd = false;
         });
         nc.on(cc.Node.EventType.TOUCH_CANCEL, function (touch) {
             if (!self._canChupai) {
@@ -1094,8 +1096,9 @@ cc.Class({
     },
     initOtherMahjongs: function initOtherMahjongs(seatData) {
         console.log("seat:" + seatData.seatindex, seatData);
+        if (!seatData) return;
         var localIndex = this.getLocalIndex(seatData.seatindex);
-        if (localIndex == 0 || seatData) {
+        if (localIndex == 0) {
             return;
         }
         var side = cc.vv.mahjongmgr.getSide(localIndex);

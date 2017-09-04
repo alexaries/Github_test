@@ -4,7 +4,7 @@
 // var URL = "http://121.196.213.165:9009";
 var URL = "http://127.0.0.1:9009";
 cc.game.config['noCache'] = true;
-cc.game.config.myversion = 2017081001;
+cc.game.config.myversion = 2017083102;
 var HTTP = cc.Class({
     extends: cc.Component,
     statics: {

@@ -30,6 +30,7 @@ cc.Class({
     onClickBtn: function(event) {
         switch (event.target.name) {
             case 'mj_join':
+                cc.vv.mjType_joinGame = 0;
                 cc.find("Canvas/JoinGame").active = true;
                 break;
             case 'mj_back':
@@ -38,7 +39,7 @@ cc.Class({
             case 'baotou':
                 if (cc.vv.gameNetMgr.roomId) {
                     this.onReturnGameClicked();
-                }else{
+                } else {
                     cc.find("Canvas/CreateRoom").active = true;
                 }
                 break;

@@ -60,10 +60,10 @@ cc.Class({
         for (var i = 1; i < 10; ++i) {
             mahjongSprites.push("character_" + i);
         }
-        //东西南北风
+        //东南西北风
         mahjongSprites.push("wind_east");
-        mahjongSprites.push("wind_west");
         mahjongSprites.push("wind_south");
+        mahjongSprites.push("wind_west");
         mahjongSprites.push("wind_north");
         //中、发、白
         mahjongSprites.push("red");

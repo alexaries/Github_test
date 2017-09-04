@@ -49,38 +49,6 @@ function shuffle(game) {
         mahjongs[index] = mahjongs[lastIndex];
         mahjongs[lastIndex] = t;
     }
-    console.log("log.game.mahjongs=>", game.mahjongs);
-    // // var a1 = [1, 2, 16, 40, 7, 22, 23, 24, 24, 25, 25, 26, 26];
-    // var a1 = [5, 5, 11, 11, 12, 12, 15, 15, 15, 21, 21, 25, 25];
-    // var a2 = [7, 7, 15, 41, 18, 19, 20, 24, 24, 25, 25, 26, 26];
-    // // var a2 = [2, 3, 4, 11, 11, 11, 15, 15, 15, 19, 19, 27, 28];
-    // // var a2 = [5, 6, 7, 10, 10, 10, 11, 12, 13, 22, 23, 25, 26];
-    // // var a2 = [1, 2, 3, 5, 5, 9, 10, 11, 19, 20, 21, 27, 27];
-    // // var a2 = [0, 0, 2, 3, 4, 10, 11, 12, 18, 19, 20, 21, 21];
-    // var a3 = [0, 1, 2, 4, 4, 4, 6, 7, 8, 13, 14, 22, 22];
-    // // var a4 = [0, 1, 2, 3, 4, 4, 6, 7, 8, 27, 27, 13, 14];
-    // // var a4 = [3, 4, 5, 7, 8, 12, 12, 13, 13, 13, 19, 19, 6];
-    // var a4 = [12, 12, 12, 4, 4, 4, 15, 15, 15, 19, 19, 20, 21];
-    // var ta = [];
-    // for (var i = 0; i < a1.length; i++) {
-    //     ta.push(a1[i]);
-    //     ta.push(a2[i]);
-    //     ta.push(a3[i]);
-    //     ta.push(a4[i]);
-    // }
-    // ta.push(40);
-    // ta.push(41);
-    // ta.push(15);
-    // // ta.push(34);
-    // ta.push(22);
-    // ta.push(2);
-    // ta.push(17);
-    // ta.push(8);
-    // // ta.push(34);
-    // ta.push(22);
-    // mahjongs = ta.concat(mahjongs);
-    // game.mahjongs = mahjongs;
-    // // _testPais(game);
 }
 // 摸牌
 function mopai(game, seatIndex) {

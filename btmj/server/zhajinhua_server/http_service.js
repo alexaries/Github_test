@@ -193,6 +193,7 @@ exports.start = function($config) {
         room_type: 2,
         userOnline: userMgr.getOnlineCount(),
     };
+    db.clearRobot(2);
     setInterval(update, 1000);
     app.listen(config.HTTP_PORT, config.FOR_HALL_IP);
     console.log("game server is listening on " + config.FOR_HALL_IP + ":" + config.HTTP_PORT);

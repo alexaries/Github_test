@@ -1133,7 +1133,7 @@ function userInfo_filter(dd) {
 }
 //********定时器*********
 //1表示过
-function initCounter(gamRe) {
+function initCounter(game) {
     deleteSetTimeOut(game);
     game.opsRenShu = 0;
     var counter = 10;

@@ -1,0 +1,20 @@
+{
+  "__type__": "cc.SpriteAtlas",
+  "_name": "wh.plist",
+  "_objFlags": 0,
+  "_rawFiles": null,
+  "_spriteFrames": {
+    "kuang": {
+      "__uuid__": "d92e43f6-f321-4786-964e-5c138943994a"
+    },
+    "lai": {
+      "__uuid__": "f965c368-dc56-4915-8e9d-208da9c4839f"
+    },
+    "play_scene_6": {
+      "__uuid__": "47fb87f5-88e0-4084-bb42-f51ccb6ee8ac"
+    },
+    "shangcheng6": {
+      "__uuid__": "83a98644-92fe-455d-b552-6205396fb231"
+    }
+  }
+}

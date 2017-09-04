@@ -263,6 +263,7 @@ exports.userOnlineNum = function(callback) {
     var zjh_userNum = 0;
     var dn_userNum = 0;
     var dzpk_userNum = 0;
+    var wh_userNum = 0;
     for (var s in serverMap) {
         var info = serverMap[s];
         if (info.room_type == 0) {
@@ -277,12 +278,16 @@ exports.userOnlineNum = function(callback) {
         if (info.room_type == 4) {
             dzpk_userNum = dzpk_userNum + info.userOnline;
         }
+        if (info.room_type == 5) {
+            wh_userNum = wh_userNum + info.userOnline;
+        }
     }
     var online = {
         0: mj_userNum,
         2: zjh_userNum,
         3: dn_userNum,
         4: dzpk_userNum,
+        5: wh_userNum,
     }
     callback(online);
 };

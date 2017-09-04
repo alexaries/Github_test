@@ -362,6 +362,8 @@ cc.Class({
             }
             cc.find('Canvas/seat' + i + '/toggle').active = true;
             self._seats[i].setTime();
+            self.hideOhersPkButton();
+            self._tips.node.active = false;
             if (i != 0) {
                 //如果没有轮到自己操作
                 self._genzhu.active = false;
@@ -704,6 +706,7 @@ cc.Class({
     //点击看牌按钮
     kanpai: function() {
         cc.vv.net.send('kanpai');
+        this._kanpai.active = false;
     },
     //点击加注按钮，打开加注界面
     jiazhu: function() {
@@ -1012,17 +1015,19 @@ cc.Class({
     //孤注一掷
     allin: function() {
         cc.vv.net.send('all_in');
+        this._allin.active = false;
     },
     //孤注一掷动画
     doAllin: function(data, callback) {
         var userid = data.userid; //发起孤注一掷的那个人
         var status = data.status; //0-输了 1-赢了
+        var others = data.others; //被比牌的人
         var self = this;
         self.bipaiAnimQueue = [];
         for (var i in self._seats) {
             var seatData = self._seats[i];
             var seatUserId = seatData['_userId'];
-            if (!seatUserId || seatUserId == userid) continue;
+            if (!seatUserId || seatUserId == userid || others.indexOf(seatUserId) == -1) continue;
             var winer, loser;
             if (status == 0) {
                 winer = seatUserId;

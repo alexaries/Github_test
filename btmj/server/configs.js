@@ -52,7 +52,7 @@ exports.hall_server = function() {
         //暴露给客户端的socket接口
         CLIENT_IP: HALL_IP,
         CLIENT_PORT: 9090,
-        MODULES: [0, 1, 2, 3, 4], //0-德州扑克 1-炸金花 2-麻将 3-斗牛 4-锦标赛 5-斗地主
+        MODULES: [0, 1, 3, 4, 5], //0-德州扑克 1-炸金花 2-包头麻将 3-武汉麻将 4-斗牛 5-锦标赛 6-斗地主
         is_open_jbs: true, //是否开放锦标赛
         URL: "http://mj.yajugame.com/manage1/?/go/index/payDo/",
         SHARE_URL: "http://mj.yajugame.com/wx_app.php?is=btmj",
@@ -183,5 +183,26 @@ exports.robot_server = function() {
         //暴露给客户端的接口
         CLIENT_IP: HALL_IP,
         CLIENT_PORT: 19050,
+    };
+};
+//武汉麻将
+//游戏服配置
+exports.wh_majiang_server = function() {
+    return {
+        SERVER_ID: "007",
+        //暴露给大厅服的HTTP端口号
+        HTTP_PORT: 9063,
+        //HTTP TICK的间隔时间，用于向大厅服汇报情况
+        HTTP_TICK_TIME: 5000,
+        //大厅服IP
+        HALL_IP: LOCAL_IP,
+        FOR_HALL_IP: LOCAL_IP,
+        //大厅服端口
+        HALL_PORT: HALL_ROOM_PORT,
+        //与大厅服协商好的通信加密KEY
+        ROOM_PRI_KEY: ROOM_PRI_KEY,
+        //暴露给客户端的接口
+        CLIENT_IP: HALL_IP,
+        CLIENT_PORT: 19060,
     };
 };

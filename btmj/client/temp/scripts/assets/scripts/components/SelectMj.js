@@ -36,6 +36,7 @@ cc.Class({
     onClickBtn: function onClickBtn(event) {
         switch (event.target.name) {
             case 'mj_join':
+                cc.vv.mjType_joinGame = 0;
                 cc.find("Canvas/JoinGame").active = true;
                 break;
             case 'mj_back':

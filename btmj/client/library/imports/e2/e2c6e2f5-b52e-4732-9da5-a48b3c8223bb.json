@@ -1,0 +1,22 @@
+{
+  "__type__": "cc.SpriteFrame",
+  "content": {
+    "name": "jin",
+    "texture": "d210e005-deb5-455f-b22f-950a6360e768",
+    "atlas": "",
+    "rect": [
+      1,
+      0,
+      219,
+      206
+    ],
+    "offset": [
+      -2,
+      0
+    ],
+    "originalSize": [
+      225,
+      206
+    ]
+  }
+}

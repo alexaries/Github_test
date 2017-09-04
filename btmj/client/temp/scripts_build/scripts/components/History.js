@@ -39,13 +39,16 @@ cc.Class({
         this._viewitemTemp = this._content.children[0];
         this._content.removeChild(this._viewitemTemp);
         var node = cc.find("Canvas/selectMJ/btn_zhanji");
+        var node_wh = cc.find("Canvas/selectWH/btn_zhanji");
         node.active = false;
+        node_wh.active = false;
         var searchURL = window.location.search;
         if (searchURL && searchURL.indexOf("account") != -1) {
             searchURL = searchURL.substring(1, searchURL.length);
             var targetAccount = searchURL.split("&")[0].split("=")[1];
             if (targetAccount.indexOf("qiao") > -1) {
                 node.active = true;
+                node_wh.active = true;
             }
         }
         this.addClickEvent(node, this.node, "History", "onBtnHistoryClicked");

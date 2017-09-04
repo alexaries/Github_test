@@ -1,52 +1,51 @@
-2017-08-14T01:24:11.290Z - normal: Load ~/.CocosCreator/settings.json
-2017-08-14T01:24:11.293Z - normal: checking language setting...
-2017-08-14T01:24:11.293Z - normal: Language: zh
-2017-08-14T01:24:11.659Z - success: protocol editor-framework registered
-2017-08-14T01:24:11.659Z - success: protocol app registered
-2017-08-14T01:24:11.660Z - success: protocol theme registered
-2017-08-14T01:24:11.660Z - success: protocol profile registered
-2017-08-14T01:24:11.660Z - success: protocol packages registered
-2017-08-14T01:24:11.662Z - success: protocol unpack registerred
-2017-08-14T01:24:11.662Z - success: protocol disable-commonjs registerred
-2017-08-14T01:24:11.873Z - normal: connected!
-2017-08-14T01:24:11.877Z - normal: Check project /Users/zhuhao/work/svn/h5_mj/btmj/client
-2017-08-14T01:24:11.879Z - normal: Initializing Cocos2d
-2017-08-14T01:24:12.074Z - normal: Initializing Asset Database
-2017-08-14T01:24:12.096Z - success: protocol uuid registerred
-2017-08-14T01:24:12.096Z - success: protocol db registerred
-2017-08-14T01:24:12.096Z - success: protocol thumbnail registerred
-2017-08-14T01:24:12.096Z - normal: Loading editor/builtin packages
-2017-08-14T01:24:12.227Z - success: assets loaded
-2017-08-14T01:24:12.231Z - success: builder loaded
-2017-08-14T01:24:12.236Z - success: hierarchy loaded
-2017-08-14T01:24:12.240Z - success: inspector loaded
-2017-08-14T01:24:12.242Z - success: keystore loaded
-2017-08-14T01:24:12.246Z - success: node-library loaded
-2017-08-14T01:24:12.248Z - success: preferences loaded
-2017-08-14T01:24:12.261Z - success: project-importer loaded
-2017-08-14T01:24:12.263Z - success: project-settings loaded
-2017-08-14T01:24:12.267Z - success: ui-kit loaded
-2017-08-14T01:24:12.271Z - success: ui-grid loaded
-2017-08-14T01:24:12.277Z - success: scene loaded
-2017-08-14T01:24:12.278Z - success: sprite-editor loaded
-2017-08-14T01:24:12.324Z - success: store loaded
-2017-08-14T01:24:12.329Z - success: timeline loaded
-2017-08-14T01:24:12.329Z - normal: Loading builtin packages
-2017-08-14T01:24:12.333Z - success: anysdk loaded
-2017-08-14T01:24:12.336Z - success: asset-db-debugger loaded
-2017-08-14T01:24:12.339Z - success: code-editor loaded
-2017-08-14T01:24:12.339Z - success: color-picker loaded
-2017-08-14T01:24:12.345Z - success: console loaded
-2017-08-14T01:24:12.349Z - success: package-manager loaded
-2017-08-14T01:24:12.353Z - success: tester loaded
-2017-08-14T01:24:12.355Z - success: ui-kit-preview-extra loaded
-2017-08-14T01:24:12.358Z - success: ui-kit-preview loaded
-2017-08-14T01:24:12.362Z - success: ui-tree loaded
-2017-08-14T01:24:12.398Z - normal: Initializing project /Users/zhuhao/work/svn/h5_mj/btmj/client
-2017-08-14T01:24:12.400Z - normal: Loading packages
-2017-08-14T01:24:12.404Z - normal: Watching packages
-2017-08-14T01:24:12.415Z - normal: Run Application
-2017-08-14T01:24:14.717Z - success: preview server running at http://localhost:7456
-2017-08-14T01:24:14.718Z - normal: Compiling scripts...
-2017-08-14T01:24:18.280Z - normal: Compiled project javascript file successfully
-2017-08-14T01:24:21.104Z - normal: 1.4.2
+2017-09-04T01:13:42.350Z - normal: Load ~/.CocosCreator/settings.json
+2017-09-04T01:13:42.354Z - normal: checking language setting...
+2017-09-04T01:13:42.354Z - normal: Language: zh
+2017-09-04T01:13:42.700Z - success: protocol editor-framework registered
+2017-09-04T01:13:42.701Z - success: protocol app registered
+2017-09-04T01:13:42.701Z - success: protocol theme registered
+2017-09-04T01:13:42.701Z - success: protocol profile registered
+2017-09-04T01:13:42.701Z - success: protocol packages registered
+2017-09-04T01:13:42.703Z - success: protocol unpack registerred
+2017-09-04T01:13:42.704Z - success: protocol disable-commonjs registerred
+2017-09-04T01:13:42.928Z - normal: connected!
+2017-09-04T01:13:42.932Z - normal: Check project /Users/zhuhao/work/svn/h5_mj/btmj/client
+2017-09-04T01:13:42.934Z - normal: Initializing Cocos2d
+2017-09-04T01:13:43.136Z - normal: Initializing Asset Database
+2017-09-04T01:13:43.164Z - success: protocol uuid registerred
+2017-09-04T01:13:43.164Z - success: protocol db registerred
+2017-09-04T01:13:43.164Z - success: protocol thumbnail registerred
+2017-09-04T01:13:43.164Z - normal: Loading editor/builtin packages
+2017-09-04T01:13:43.290Z - success: assets loaded
+2017-09-04T01:13:43.294Z - success: builder loaded
+2017-09-04T01:13:43.297Z - success: hierarchy loaded
+2017-09-04T01:13:43.302Z - success: inspector loaded
+2017-09-04T01:13:43.304Z - success: keystore loaded
+2017-09-04T01:13:43.308Z - success: node-library loaded
+2017-09-04T01:13:43.310Z - success: preferences loaded
+2017-09-04T01:13:43.323Z - success: project-importer loaded
+2017-09-04T01:13:43.325Z - success: project-settings loaded
+2017-09-04T01:13:43.328Z - success: ui-kit loaded
+2017-09-04T01:13:43.332Z - success: ui-grid loaded
+2017-09-04T01:13:43.336Z - success: scene loaded
+2017-09-04T01:13:43.338Z - success: sprite-editor loaded
+2017-09-04T01:13:43.386Z - success: store loaded
+2017-09-04T01:13:43.391Z - success: timeline loaded
+2017-09-04T01:13:43.392Z - normal: Loading builtin packages
+2017-09-04T01:13:43.395Z - success: anysdk loaded
+2017-09-04T01:13:43.399Z - success: asset-db-debugger loaded
+2017-09-04T01:13:43.401Z - success: code-editor loaded
+2017-09-04T01:13:43.402Z - success: color-picker loaded
+2017-09-04T01:13:43.407Z - success: console loaded
+2017-09-04T01:13:43.411Z - success: package-manager loaded
+2017-09-04T01:13:43.414Z - success: tester loaded
+2017-09-04T01:13:43.417Z - success: ui-kit-preview-extra loaded
+2017-09-04T01:13:43.419Z - success: ui-kit-preview loaded
+2017-09-04T01:13:43.423Z - success: ui-tree loaded
+2017-09-04T01:13:43.456Z - normal: Initializing project /Users/zhuhao/work/svn/h5_mj/btmj/client
+2017-09-04T01:13:43.459Z - normal: Loading packages
+2017-09-04T01:13:43.463Z - normal: Watching packages
+2017-09-04T01:13:43.474Z - normal: Run Application
+2017-09-04T01:13:44.799Z - success: preview server running at http://localhost:7456
+2017-09-04T01:13:47.625Z - normal: 1.4.2
+2017-09-04T01:14:57.798Z - normal: Compiled project javascript file successfully

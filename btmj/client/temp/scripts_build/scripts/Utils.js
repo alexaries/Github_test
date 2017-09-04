@@ -55,7 +55,6 @@ cc.Class({
         }
         return jinbi;
     },
-
     checkRate: function checkRate(nubmer) {
         //判断字符串是否为数字//
         // 　　var re = /^[0-9]+.?[0-9]*$/;  

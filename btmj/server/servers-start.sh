@@ -1,0 +1,10 @@
+cd $(cd $(dirname $0); pwd);
+pm2 start ./account_server/app.js --name account
+pm2 start ./hall_server/app.js --name hall
+pm2 start ./majiang_server/app.js --name majiang
+pm2 start ./zhajinhua_server/app.js --name zhajinhua
+pm2 start ./caiquan_server/app.js --name caiquan
+pm2 start ./douniu_server/app.js --name douniu
+pm2 start ./dzpk_server/app.js --name dzpk
+pm2 start ./robot_server/app.js --name robot
+pm2 start ./wh_majiang_server/app.js --name wuhan_majiang

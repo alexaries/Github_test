@@ -1,0 +1,22 @@
+{
+  "__type__": "cc.SpriteFrame",
+  "content": {
+    "name": "feng",
+    "texture": "78b7e5be-244e-4b32-8534-482d4c6eae68",
+    "atlas": "",
+    "rect": [
+      1,
+      0,
+      219,
+      206
+    ],
+    "offset": [
+      -2,
+      0
+    ],
+    "originalSize": [
+      225,
+      206
+    ]
+  }
+}
